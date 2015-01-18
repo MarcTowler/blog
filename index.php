@@ -39,7 +39,17 @@ require_once('includes/config.php');
                 <?php
                 try {
 
-                    $stmt = $db->query('SELECT postID, postTitle, postDesc, postDate FROM blog_posts ORDER BY postID DESC');
+                    //instantiate the class
+                    $pages = new Paginator('5','p');
+
+//collect all records fro the next function
+                    $stmt = $db->query('SELECT postID FROM blog_posts_seo');
+
+//determine the total number of records
+                    $pages->set_total($stmt->rowCount());
+
+                    $stmt = $db->query('SELECT postID, postTitle, postSlug, postDesc, postDate FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
+
                     while($row = $stmt->fetch()){
 
                         echo '<div>';
@@ -62,6 +72,8 @@ require_once('includes/config.php');
                         echo '</div>';
 
                     }
+
+                    echo $pages->page_links();
 
                 } catch(PDOException $e) {
                     echo $e->getMessage();
