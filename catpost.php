@@ -77,7 +77,9 @@ if($row['catID'] == ''){
     ?>
 
 </div>
-
+<div id='sidebar'>
+    <?php require_once('sidebar.php'); ?>
+</div>
 
 </body>
 </html>

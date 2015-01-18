@@ -69,6 +69,9 @@ require_once('includes/config.php');
                 ?>
 
             </div>
+            <div id='sidebar'>
+                <?php require_once('sidebar.php'); ?>
+            </div>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
