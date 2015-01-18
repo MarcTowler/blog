@@ -37,4 +37,6 @@ function __autoload($class) {
 
 }
 $user = new User($db);
+
+include_once('functions.php');
 ?>
