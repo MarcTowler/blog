@@ -7,75 +7,75 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Admin - Add Category</title>
-    <link rel="stylesheet" href="../style/normalize.css">
-    <link rel="stylesheet" href="../style/main.css">
+  <meta charset="utf-8">
+  <title>Admin - Add Category</title>
+  <link rel="stylesheet" href="../style/normalize.css">
+  <link rel="stylesheet" href="../style/main.css">
 </head>
 <body>
 
 <div id="wrapper">
 
-    <?php include('menu.php');?>
-    <p><a href="categories.php">Categories Index</a></p>
+	<?php include('menu.php');?>
+	<p><a href="categories.php">Categories Index</a></p>
 
-    <h2>Add Category</h2>
+	<h2>Add Category</h2>
 
-    <?php
+	<?php
 
-    //if form has been submitted process it
-    if(isset($_POST['submit'])){
+	//if form has been submitted process it
+	if(isset($_POST['submit'])){
 
-        $_POST = array_map( 'stripslashes', $_POST );
+		$_POST = array_map( 'stripslashes', $_POST );
 
-        //collect form data
-        extract($_POST);
+		//collect form data
+		extract($_POST);
 
-        //very basic validation
-        if($catTitle ==''){
-            $error[] = 'Please enter the Category.';
-        }
+		//very basic validation
+		if($catTitle ==''){
+			$error[] = 'Please enter the Category name.';
+		}
 
-        if(!isset($error)){
+		if(!isset($error)){
 
-            try {
+			try {
 
-                $catSlug = slug($catTitle);
+				$catSlug = slug($catTitle);
 
-                //insert into database
-                $stmt = $db->prepare('INSERT INTO blog_cats (catTitle,catSlug) VALUES (:catTitle, :catSlug)') ;
-                $stmt->execute(array(
-                    ':catTitle' => $catTitle,
-                    ':catSlug' => $catSlug
-                ));
+				//insert into database
+				$stmt = $db->prepare('INSERT INTO blog_cats (catTitle,catSlug) VALUES (:catTitle, :catSlug)') ;
+				$stmt->execute(array(
+					':catTitle' => $catTitle,
+					':catSlug' => $catSlug
+				));
 
-                //redirect to index page
-                header('Location: categories.php?action=added');
-                exit;
+				//redirect to index page
+				header('Location: categories.php?action=added');
+				exit;
 
-            } catch(PDOException $e) {
-                echo $e->getMessage();
-            }
+			} catch(PDOException $e) {
+			    echo $e->getMessage();
+			}
 
-        }
+		}
 
-    }
+	}
 
-    //check for any errors
-    if(isset($error)){
-        foreach($error as $error){
-            echo '<p class="error">'.$error.'</p>';
-        }
-    }
-    ?>
+	//check for any errors
+	if(isset($error)){
+		foreach($error as $error){
+			echo '<p class="error">'.$error.'</p>';
+		}
+	}
+	?>
 
-    <form action='' method='post'>
+	<form action='' method='post'>
 
-        <p><label>Title</label><br />
-            <input type='text' name='catTitle' value='<?php if(isset($error)){ echo $_POST['catTitle'];}?>'></p>
+		<p><label>Category Title</label><br />
+		<input type='text' name='catTitle' value='<?php if(isset($error)){ echo $_POST['catTitle'];}?>'></p>
 
-        <p><input type='submit' name='submit' value='Submit'></p>
+		<p><input type='submit' name='submit' value='Submit'></p>
 
-    </form>
+	</form>
 
 </div>
