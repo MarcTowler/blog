@@ -302,7 +302,9 @@ AddDefaultCharset utf-8
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 RewriteEngine On
-RewriteBase /simpleblog-seo/
+RewriteBase /
+
+RewriteRule ^c-(.*)$ catpost.php?id=$1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d [NC]
 RewriteCond %{REQUEST_FILENAME} !-f [NC]

@@ -1,21 +1,20 @@
 <?php
 //include config
 require_once('../includes/config.php');
+
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
+
 //show message from add / edit page
-if(isset($_GET['delpost'])){
+if(isset($_GET['delcat'])){
 
-    $stmt = $db->prepare('DELETE FROM blog_posts_seo WHERE postID = :postID') ;
-    $stmt->execute(array(':postID' => $_GET['delpost']));
+    $stmt = $db->prepare('DELETE FROM blog_cats WHERE catID = :catID') ;
+    $stmt->execute(array(':catID' => $_GET['delcat']));
 
-    //delete post categories.
-    $stmt = $db->prepare('DELETE FROM blog_post_cats WHERE postID = :postID');
-    $stmt->execute(array(':postID' => $_GET['delpost']));
-
-    header('Location: index.php?action=deleted');
+    header('Location: categories.php?action=deleted');
     exit;
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,11 +24,11 @@ if(isset($_GET['delpost'])){
     <link rel="stylesheet" href="../style/normalize.css">
     <link rel="stylesheet" href="../style/main.css">
     <script language="JavaScript" type="text/javascript">
-        function delpost(id, title)
+        function delcat(id, title)
         {
             if (confirm("Are you sure you want to delete '" + title + "'"))
             {
-                window.location.href = 'index.php?delpost=' + id;
+                window.location.href = 'categories.php?delcat=' + id;
             }
         }
     </script>
@@ -43,41 +42,42 @@ if(isset($_GET['delpost'])){
     <?php
     //show message from add / edit page
     if(isset($_GET['action'])){
-        echo '<h3>Post '.$_GET['action'].'.</h3>';
+        echo '<h3>Category '.$_GET['action'].'.</h3>';
     }
     ?>
 
     <table>
         <tr>
             <th>Title</th>
-            <th>Date</th>
             <th>Action</th>
         </tr>
         <?php
         try {
-            $stmt = $db->query('SELECT postID, postTitle, postDate FROM blog_posts ORDER BY postID DESC');
+
+            $stmt = $db->query('SELECT catID, catTitle, catSlug FROM blog_cats ORDER BY catTitle DESC');
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
-                echo '<td>'.$row['postTitle'].'</td>';
-                echo '<td>'.date('jS M Y', strtotime($row['postDate'])).'</td>';
+                echo '<td>'.$row['catTitle'].'</td>';
                 ?>
 
                 <td>
-                    <a href="edit-post.php?id=<?php echo $row['postID'];?>">Edit</a> |
-                    <a href="javascript:delpost('<?php echo $row['postID'];?>','<?php echo $row['postTitle'];?>')">Delete</a>
+                    <a href="edit-category.php?id=<?php echo $row['catID'];?>">Edit</a> |
+                    <a href="javascript:delcat('<?php echo $row['catID'];?>','<?php echo $row['catSlug'];?>')">Delete</a>
                 </td>
 
                 <?php
                 echo '</tr>';
+
             }
+
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
         ?>
     </table>
 
-    <p><a href='add-post.php'>Add Post</a></p>
+    <p><a href='add-category.php'>Add Category</a></p>
 
 </div>
 
