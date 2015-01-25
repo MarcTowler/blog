@@ -43,6 +43,7 @@ if($row['catID'] == ''){
 					WHERE
 						 blog_posts_seo.postID = blog_post_cats.postID
 						 AND blog_post_cats.catID = :catID
+						 AND blog_posts_seo.postDate <= NOW()
 					ORDER BY 
 						postID DESC
 					'.$pages->get_limit());
