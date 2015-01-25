@@ -48,7 +48,7 @@ require_once('includes/config.php');
 //determine the total number of records
                     $pages->set_total($stmt->rowCount());
 
-                    $stmt = $db->query('SELECT postID, postTitle, postSlug, postDesc, postDate FROM blog_posts_seo WHERE postDate <= NOW() ORDER BY postID DESC '.$pages->get_limit());
+                    $stmt = $db->query('SELECT postID, postTitle, postSlug, postDesc, postDate FROM blog_posts_seo WHERE postDate <= NOW() AND published = 1 ORDER BY postID DESC '.$pages->get_limit());
 
                     while($row = $stmt->fetch()){
 

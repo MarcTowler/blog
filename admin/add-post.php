@@ -119,7 +119,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<textarea name='postCont' cols='60' rows='10'><?php if(isset($error)){ echo $_POST['postCont'];}?></textarea></p>
 
 		<p><label>Publish Time</label></p>
-		<input type="text" name="postDate" value="<?php date("Y-m-d H:i:s"); ?>" /></p>
+		<input type="text" name="postDate" value="<?php echo(date("Y-m-d H:i:s")); ?>" /></p>
 
         <p><label>Publish now?</label><br />
         <input type="radio" name="publish" value="1" />Yes <input type="radio" name="publish" value="0" />No</p>
