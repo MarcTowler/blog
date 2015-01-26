@@ -35,3 +35,33 @@
     }
     ?>
 </ul>
+
+<h2>Useful Links</h2>
+
+<ul>
+    <?php
+    if(isset($_SESSION['uid']) && $_SESSION['uid'] > 0)
+    {
+?>
+    <li>
+        <a href="/admin">
+            Admin Section
+        </a>
+    </li>
+    <li>
+        <a href="/admin/logout.php">
+            Logout
+        </a>
+    </li>
+<?php
+    } else {
+?>
+    <li>
+        <a href="/admin">
+            Login
+        </a>
+    </li>
+<?php
+    }
+    ?>
+</ul>

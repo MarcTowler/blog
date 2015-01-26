@@ -2,6 +2,7 @@
 include('class.password.php');
 class User extends Password{
     private $db;
+    protected $uid;
 
     function __construct($db){
         parent::__construct();
@@ -15,10 +16,11 @@ class User extends Password{
     }
     private function get_user_hash($username){
         try {
-            $stmt = $this->_db->prepare('SELECT password FROM blog_members WHERE username = :username');
+            $stmt = $this->_db->prepare('SELECT password, memberID FROM blog_members WHERE username = :username');
             $stmt->execute(array('username' => $username));
 
             $row = $stmt->fetch();
+            $_SESSION['uid'] = $row['memberID'];
             return $row['password'];
         } catch(PDOException $e) {
             echo '<p class="error">'.$e->getMessage().'</p>';
@@ -31,6 +33,7 @@ class User extends Password{
         if($this->password_verify($password,$hashed) == 1){
 
             $_SESSION['loggedin'] = true;
+
             return true;
         }
     }

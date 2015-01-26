@@ -124,6 +124,8 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
         <p><label>Publish now?</label><br />
         <input type="radio" name="publish" value="1" />Yes <input type="radio" name="publish" value="0" />No</p>
 
+		<input type="hidden" value="<?php echo($_SESSION['uid']);?>" name="poster" />
+
 		<fieldset>
 			<legend>Categories</legend>
 

@@ -37,7 +37,7 @@ if(isset($_GET['pub']))
     <script language="JavaScript" type="text/javascript">
         function spam(id, title)
         {
-            if (confirm("Are you sure you want to mark '" + title + "' as a spam comment - note this cannot be undone"))
+            if (confirm("Are you sure you want to mark the comment by '" + title + "' as a spam comment - note this cannot be undone"))
             {
                 window.location.href = 'comments.php?spam=' + id;
             }
@@ -47,7 +47,7 @@ if(isset($_GET['pub']))
 
         function pub(id, title)
         {
-            if (confirm("Are you sure you want to publish the comment '" + title + "'"))
+            if (confirm("Are you sure you want to publish the comment by '" + title + "'"))
             {
                 window.location.href = 'comments.php?pub=' + id;
             }
@@ -87,8 +87,8 @@ if(isset($_GET['pub']))
                 ?>
 
                 <td>
-                    <a href="javascript:spam('<?php echo$row['cid'];?>','<?php echo $row['comment'];?>')">Spam</a> |
-                    <a href="javascript:pub('<?php echo $row['cid'];?>','<?php echo $row['comment'];?>')">Publish</a>
+                    <a href="javascript:spam('<?php echo$row['cid'];?>','<?php echo $row['name'];?>')">Spam</a> |
+                    <a href="javascript:pub('<?php echo $row['cid'];?>','<?php echo $row['name'];?>')">Publish</a>
                 </td>
 
                 <?php

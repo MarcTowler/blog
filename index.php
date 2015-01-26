@@ -48,13 +48,18 @@ require_once('includes/config.php');
 //determine the total number of records
                     $pages->set_total($stmt->rowCount());
 
-                    $stmt = $db->query('SELECT postID, postTitle, postSlug, postDesc, postDate FROM blog_posts_seo WHERE postDate <= NOW() AND published = 1 ORDER BY postID DESC '.$pages->get_limit());
+                    $stmt = $db->query('SELECT p.postID, m.username, p.postTitle,
+                        p.postSlug, p.postDesc, p.postDate FROM blog_posts_seo p,
+                        blog_members m WHERE p.poster = m.memberID AND postDate
+                        <= NOW() AND published = 1 ORDER BY postID DESC ' .
+                        $pages->get_limit());
 
                     while($row = $stmt->fetch()){
 
                         echo '<div>';
                         echo '<h1><a href="viewpost.php?id='.$row['postSlug'].'">'.$row['postTitle'].'</a></h1>';
-                        echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' in ';
+                        if(isset($_SESSION) && $_SESSION['uid'] > 0) { echo '[<a href="/admin/edit-post.php?id='.$row["postID"].'">EDIT</a>]';}
+                        echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>'.$row['username']. '</b> in ';
 
                         $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                         $stmt2->execute(array(':postID' => $row['postID']));

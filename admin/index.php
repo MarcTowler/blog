@@ -80,8 +80,10 @@ if(isset($_GET['pub'])) {
 	//show message from add / edit page
 	if(isset($_GET['action'])){ 
 		echo '<h3>Post '.$_GET['action'].'.</h3>'; 
-	} 
+	}
 	?>
+
+    <p><a href='add-post.php'>Add Post</a></p>
 
 	<table>
 	<tr>
@@ -92,7 +94,16 @@ if(isset($_GET['pub'])) {
 	<?php
 		try {
 
-			$stmt = $db->query('SELECT postID, postTitle, postDate, published FROM blog_posts_seo ORDER BY postID DESC');
+            //instantiate the class
+            $pages = new Paginator('20','p');
+
+            //collect all records fro the next function
+            $stmt = $db->query('SELECT postID FROM blog_posts_seo');
+
+//determine the total number of records
+            $pages->set_total($stmt->rowCount());
+
+			$stmt = $db->query('SELECT postID, postTitle, postDate, published FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
 			while($row = $stmt->fetch()){
 				
 				echo '<tr>';
@@ -122,6 +133,8 @@ if(isset($_GET['pub'])) {
 				echo '</tr>';
 
 			}
+
+            echo $pages->page_links();
 
 		} catch(PDOException $e) {
 		    echo $e->getMessage();

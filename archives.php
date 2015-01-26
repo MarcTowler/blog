@@ -53,14 +53,18 @@ require_once('includes/config.php');
             ));
             //pass number of records to
             $pages->set_total($stmt->rowCount());
-            $stmt = $db->prepare('SELECT postID, postTitle, postSlug, postDesc, postDate FROM blog_posts_seo WHERE postDate >= :from AND postDate <= :to ORDER BY postID DESC '.$pages->get_limit());
+            $stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle,
+                        p.postSlug, p.postDesc, p.postDate FROM blog_posts_seo p,
+                        blog_members m WHERE p.poster = m.memberID AND postDate
+                        >= :from AND postDate <= :to ORDER BY postID DESC '.
+                        $pages->get_limit());
             $stmt->execute(array(
                 ':from' => $from,
                 ':to' => $to
             ));
             while($row = $stmt->fetch()){
                 echo '<h1><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></h1>';
-                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' in ';
+                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>' . $row['username'] . '</b> in ';
                 $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                 $stmt2->execute(array(':postID' => $row['postID']));
                 $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);

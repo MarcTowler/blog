@@ -28,7 +28,7 @@ if(isset($_POST['submit']))
 
 
 
-$stmt = $db->prepare('SELECT postID, postTitle, postCont, postDate FROM blog_posts_seo WHERE postSlug = :postSlug AND published = 1');
+$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster postSlug = :postSlug AND published = 1');
 $stmt->execute(array(':postSlug' => $_GET['id']));
 $row = $stmt->fetch();
 
@@ -78,7 +78,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                 <?php
                 echo '<div>';
                 echo '<h1>'.$row['postTitle'].'</h1>';
-                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' in ';
+                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['username'] . '</b> in ';
 
                 $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                 $stmt2->execute(array(':postID' => $row['postID']));
