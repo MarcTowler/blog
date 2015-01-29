@@ -70,13 +70,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 				$postSlug = slug($postTitle);
 
 				//insert into database
-				$stmt = $db->prepare('UPDATE blog_posts_seo SET postTitle = :postTitle, postSlug = :postSlug, postDesc = :postDesc, postCont = :postCont, published = :publish WHERE postID = :postID') ;
+				$stmt = $db->prepare('UPDATE blog_posts_seo SET postTitle = :postTitle, postSlug = :postSlug, postDesc = :postDesc, postCont = :postCont, postDate = :postDate, published = :publish WHERE postID = :postID') ;
 				$stmt->execute(array(
 					':postTitle' => $postTitle,
 					':postSlug'  => $postSlug,
 					':postDesc'  => $postDesc,
 					':postCont'  => $postCont,
 					':postID'    => $postID,
+					':postDate'  => $postDate,
                     ':publish'   => $publish
 				));
 
@@ -119,7 +120,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 		try {
 
-			$stmt = $db->prepare('SELECT postID, postTitle, postDesc, postCont, published FROM blog_posts_seo WHERE postID = :postID') ;
+			$stmt = $db->prepare('SELECT postID, postTitle, postDesc, postCont, postDate, published FROM blog_posts_seo WHERE postID = :postID') ;
 			$stmt->execute(array(':postID' => $_GET['id']));
 			$row = $stmt->fetch(); 
 
@@ -141,7 +142,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<p><label>Content</label><br />
 		<textarea name='postCont' cols='60' rows='10'><?php echo $row['postCont'];?></textarea></p>
 
-        <p><label>Publish now?</label><br />
+		<p><label>Publish Time</label></p>
+		<input type="text" name="postDate" value="<?php echo($row['postDate']); ?>" /></p>
+
+		<p><label>Publish now?</label><br />
             <?php
             if($row['published'])
             {

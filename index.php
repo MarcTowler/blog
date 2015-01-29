@@ -57,7 +57,7 @@ require_once('includes/config.php');
                     while($row = $stmt->fetch()){
 
                         echo '<div>';
-                        echo '<h1><a href="viewpost.php?id='.$row['postSlug'].'">'.$row['postTitle'].'</a></h1>';
+                        echo '<h1><a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></h1>';
                         if(isset($_SESSION) && $_SESSION['uid'] > 0) { echo '[<a href="/admin/edit-post.php?id='.$row["postID"].'">EDIT</a>]';}
                         echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>'.$row['username']. '</b> in ';
 
@@ -73,7 +73,7 @@ require_once('includes/config.php');
 
                         echo '</p>';
                         echo '<p>'.$row['postDesc'].'</p>';
-                        echo '<p><a href="viewpost.php?id='.$row['postSlug'].'">Read More</a></p>';
+                        echo '<p><a href="viewpost.php?id='.$row['postID'].'">Read More</a></p>';
                         echo '</div>';
 
                     }

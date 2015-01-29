@@ -28,8 +28,8 @@ if(isset($_POST['submit']))
 
 
 
-$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster postSlug = :postSlug AND published = 1');
-$stmt->execute(array(':postSlug' => $_GET['id']));
+$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+$stmt->execute(array(':postID' => $_GET['id']));
 $row = $stmt->fetch();
 
 //if post does not exists redirect user.
