@@ -1,4 +1,9 @@
 <?php
+/**
+ * TODO:
+ * Fix JS for spam/publish to allow multiple selections.
+ * Fix PHP for above
+ */
 //include config
 require_once('../includes/config.php');
 
@@ -20,8 +25,8 @@ if(isset($_GET['spam']))
 
 if(isset($_GET['pub']))
 {
-    $stmt = $db->prepare('UPDATE blog_comments SET published = 1 WHERE cid = :cid');
-    $stmt->execute(array(':cid' => $_GET['pub']));
+    $stmt = $db->prepare('UPDATE blog_comments SET postDate = :postDate, published = 1 WHERE cid = :cid');
+    $stmt->execute(array(':cid' => $_GET['pub'], ':postDate' => date("Y-m-d H:i:s")));
 
     header('Location: comments.php?action=published');
     exit;
@@ -53,6 +58,13 @@ if(isset($_GET['pub']))
             }
         }
     </script>
+    <script language="JavaScript">
+        function toggle(source) {
+            checkboxes = document.getElementsByName('list');
+            for each(var checkbox in checkboxes)
+            checkbox.checked = source.checked;
+        }
+    </script>
 </head>
 <body>
 
@@ -67,6 +79,7 @@ if(isset($_GET['pub']))
     ?>
     <table>
         <tr>
+            <th><input type="checkbox" onClick="toggle(this)" />Select All</th>
             <th>Name</th>
             <th>Email</th>
             <th>Comment</th>
@@ -80,6 +93,7 @@ if(isset($_GET['pub']))
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
+                echo '<td><input type="checkbox" name = "list" value = "' . $row['cid'] . '">'
                 echo '<td>'.$row['name'].'</td>';
                 echo '<td>'.$row['email'].'</td>';
                 echo '<td>'.$row['comment'].'</td>';
