@@ -25,7 +25,7 @@ if(isset($_GET['spam']))
 
 if(isset($_GET['pub']))
 {
-    $stmt = $db->prepare('UPDATE blog_comments SET postDate = :postDate, published = 1 WHERE cid = :cid');
+    $stmt = $db->prepare('UPDATE blog_comments SET post_date = :postDate, published = 1 WHERE cid = :cid');
     $stmt->execute(array(':cid' => $_GET['pub'], ':postDate' => date("Y-m-d H:i:s")));
 
     header('Location: comments.php?action=published');
@@ -93,7 +93,7 @@ if(isset($_GET['pub']))
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
-                echo '<td><input type="checkbox" name = "list" value = "' . $row['cid'] . '">'
+                echo '<td><input type="checkbox" name = "list" value = "' . $row['cid'] . '">';
                 echo '<td>'.$row['name'].'</td>';
                 echo '<td>'.$row['email'].'</td>';
                 echo '<td>'.$row['comment'].'</td>';
