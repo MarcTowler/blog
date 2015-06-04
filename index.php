@@ -49,7 +49,7 @@ require_once('includes/config.php');
                     $pages->set_total($stmt->rowCount());
 
                     $stmt = $db->query('SELECT p.postID, m.username, p.postTitle,
-                        p.postSlug, p.postDesc, p.postDate FROM blog_posts_seo p,
+                        p.postSlug, p.postDesc, p.postDate, p.views FROM blog_posts_seo p,
                         blog_members m WHERE p.poster = m.memberID AND postDate
                         <= NOW() AND published = 1 ORDER BY postID DESC ' .
                         $pages->get_limit());
@@ -71,7 +71,7 @@ require_once('includes/config.php');
                         }
                         echo implode(", ", $links);
 
-                        echo '</p>';
+                        echo '&nbsp;<img src="img/view.jpg" width="20" height="20" /> ' . $row["views"] . '</p>';
                         echo '<p>'.$row['postDesc'].'</p>';
                         echo '<p><a href="viewpost.php?id='.$row['postID'].'">Read More</a></p>';
                         echo '</div>';

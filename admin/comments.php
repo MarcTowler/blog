@@ -39,6 +39,7 @@ if(isset($_GET['pub']))
     <title>Comments Admin</title>
     <link rel="stylesheet" href="../style/normalize.css">
     <link rel="stylesheet" href="../style/main.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" /></script>
     <script language="JavaScript" type="text/javascript">
         function spam(id, title)
         {
@@ -59,11 +60,19 @@ if(isset($_GET['pub']))
         }
     </script>
     <script language="JavaScript">
-        function toggle(source) {
-            checkboxes = document.getElementsByName('list');
-            for each(var checkbox in checkboxes)
-            checkbox.checked = source.checked;
-        }
+        $('#select_all').click(function(event) {
+            if(this.checked) {
+                // Iterate each checkbox
+                $(':checkbox').each(function() {
+                    this.checked = true;
+                });
+            }
+            else {
+                $(':checkbox').each(function() {
+                    this.checked = false;
+                });
+            }
+        });
     </script>
 </head>
 <body>
@@ -79,7 +88,7 @@ if(isset($_GET['pub']))
     ?>
     <table>
         <tr>
-            <th><input type="checkbox" onClick="toggle(this)" />Select All</th>
+            <th><input type="checkbox" name="select-all" id="select-all" />Select All</th>
             <th>Name</th>
             <th>Email</th>
             <th>Comment</th>
@@ -90,10 +99,11 @@ if(isset($_GET['pub']))
         try {
 
             $stmt = $db->query('SELECT cid, pid, name, email, comment, post_date, published FROM blog_comments WHERE published = 0 ORDER BY post_date DESC');
+            $i = 1;
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
-                echo '<td><input type="checkbox" name = "list" value = "' . $row['cid'] . '">';
+                echo '<td><input type="checkbox" name = "checkbox-'.$i.'" id = "checkbox-'.$i.'" value = "' . $row['cid'] . '">';
                 echo '<td>'.$row['name'].'</td>';
                 echo '<td>'.$row['email'].'</td>';
                 echo '<td>'.$row['comment'].'</td>';
@@ -107,7 +117,7 @@ if(isset($_GET['pub']))
 
                 <?php
                 echo '</tr>';
-
+                $i++;
             }
 
         } catch(PDOException $e) {

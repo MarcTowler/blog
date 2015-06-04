@@ -28,9 +28,13 @@ if(isset($_POST['submit']))
 
 
 
-$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
 $stmt->execute(array(':postID' => $_GET['id']));
 $row = $stmt->fetch();
+
+$views = $row['views'] + 1;
+$vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID');
+$vstmt->execute(array(':viewnum' => $views, ':postID' => $_GET['id']));
 
 //if post does not exists redirect user.
 if($row['postID'] == ''){
@@ -92,7 +96,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                 }
                 echo implode(", ", $links);
 
-                echo '</p>';
+                echo '&nbsp;<img src="img/view.jpg" height="20" width="20" /> ' . $row["views"] . '</p>';
                 echo '<p>'.$row['postCont'].'</p>';
                 echo '</div>';
                 ?>

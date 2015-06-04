@@ -21,6 +21,7 @@ class User extends Password{
 
             $row = $stmt->fetch();
             $_SESSION['uid'] = $row['memberID'];
+
             return $row['password'];
         } catch(PDOException $e) {
             echo '<p class="error">'.$e->getMessage().'</p>';
@@ -37,7 +38,6 @@ class User extends Password{
             return true;
         }
     }
-
 
     public function logout(){
         session_destroy();

@@ -1,43 +1,12 @@
 <?php
 //include config
+ini_set('DISPLAY_ERRORS', 1);
 require_once('../includes/config.php');
 
 
 
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
-
-//show message from add / edit page
-if(isset($_GET['delpost'])){ 
-
-	$stmt = $db->prepare('DELETE FROM blog_posts_seo WHERE postID = :postID') ;
-	$stmt->execute(array(':postID' => $_GET['delpost']));
-
-	//delete post categories. 
-	$stmt = $db->prepare('DELETE FROM blog_post_cats WHERE postID = :postID');
-	$stmt->execute(array(':postID' => $_GET['delpost']));
-
-	header('Location: index.php?action=deleted');
-	exit;
-}
-
-if(isset($_GET['unpub'])) {
-
-    $stmt = $db->prepare('UPDATE blog_posts_seo SET published = 0 WHERE postID = :postID');
-    $stmt->execute(array(':postID' => $_GET['unpub']));
-
-    header('Location: index.php?action=unpublished');
-    exit;
-}
-
-if(isset($_GET['pub'])) {
-
-    $stmt = $db->prepare('UPDATE blog_posts_seo SET published = 1 WHERE postID = :postID');
-    $stmt->execute(array(':postID' => $_GET['pub']));
-
-    header('Location: index.php?action=published');
-    exit;
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -46,31 +15,6 @@ if(isset($_GET['pub'])) {
   <title>Admin</title>
   <link rel="stylesheet" href="../style/normalize.css">
   <link rel="stylesheet" href="../style/main.css">
-  <script language="JavaScript" type="text/javascript">
-  function delpost(id, title)
-  {
-      if (confirm("Are you sure you want to delete '" + title + "'"))
-      {
-          window.location.href = 'index.php?delpost=' + id;
-      }
-  }
-
-  function unpub(id, title)
-  {
-      if (confirm("Are you sure you want to unpublish '" + title + "'"))
-      {
-          window.location.href = 'index.php?unpub=' + id;
-      }
-  }
-
-  function pub(id, title)
-  {
-      if (confirm("Are you sure you want to publish '" + title + "'"))
-      {
-          window.location.href = 'index.php?pub=' + id;
-      }
-  }
-  </script>
 </head>
 <body>
 
@@ -85,63 +29,69 @@ if(isset($_GET['pub'])) {
 	}
 	?>
 
-    <p><a href='add-post.php'>Add Post</a></p>
+    <h1>Welcome to the Admin Panel</h1>
 
 	<table>
 	<tr>
-		<th>Title</th>
-		<th>Date</th>
-		<th>Action</th>
+		<th>Blog Statistics</th>
+		<th></th>
 	</tr>
 	<?php
 		try {
 
-            //instantiate the class
-            $pages = new Paginator('20','p');
 
-            //collect all records fro the next function
-            $stmt = $db->query('SELECT postID FROM blog_posts_seo');
+            $stmt = $db->query("SELECT count(*) FROM blog_posts_seo WHERE published = 1");
+            $stmt->execute();
+            $number_of_rows = $stmt->fetchColumn();
 
-//determine the total number of records
-            $pages->set_total($stmt->rowCount());
+            $sec = $db->query("SELECT count(*) FROM blog_posts_seo WHERE published = 0");
+            $sec->execute();
+            $unpublished = $sec->fetchColumn();
 
-			$stmt = $db->query('SELECT postID, postTitle, postDate, published FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
-			while($row = $stmt->fetch()){
-				
-				echo '<tr>';
-				echo '<td>'.$row['postTitle'].'</td>';
-				echo '<td>'.date('jS M Y', strtotime($row['postDate'])).'</td>';
+            $coa = $db->query("SELECT count(*) FROM blog_comments WHERE published = 1");
+            $coa->execute();
+            $app_comm = $coa->fetchColumn();
+
+            $cop = $db->query("SELECT count(*) FROM blog_comments WHERE published = 0");
+            $cop->execute();
+            $pen_comm = $cop->fetchColumn();
+
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
 				?>
-
-				<td>
-					<a href="edit-post.php?id=<?php echo $row['postID'];?>">Edit</a> | 
-					<a href="javascript:delpost('<?php echo $row['postID'];?>','<?php echo $row['postTitle'];?>')">Delete</a>
-                    -
-                    <?php
-                        if($row['published'])
-                        {
-                    ?>
-                    <a href="javascript:unpub('<?php echo$row['postID'];?>','<?php echo $row['postTitle'];?>')">Unpublish</a>
-                    <?php
-                        } else {
-                    ?>
-                    <a href="javascript:pub('<?php echo$row['postID'];?>','<?php echo $row['postTitle'];?>')">Publish</a>
-                    <?php
-                        }
-                    ?>
-				</td>
-				
-				<?php 
-				echo '</tr>';
-
-			}
-
-            echo $pages->page_links();
-
-		} catch(PDOException $e) {
-		    echo $e->getMessage();
-		}
-	?>
+            <tr>
+                <td>
+                    Number of published blog posts
+                </td>
+                <td>
+                    <?php echo $number_of_rows; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of unpublished blog posts
+                </td>
+                <td>
+                    <?php echo $unpublished; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of approved comments
+                </td>
+                <td>
+                    <?php echo $app_comm; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of comments pending approval
+                </td>
+                <td>
+                    <?php echo $pen_comm; ?>
+                </td>
+            </tr>
 	</table>
 
 	<p><a href='add-post.php'>Add Post</a></p>
