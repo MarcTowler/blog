@@ -56,6 +56,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $cop->execute();
             $pen_comm = $cop->fetchColumn();
 
+            $top = $db->query("SELECT postTitle, views FROM blog_posts_seo order by views DESC limit 5");
+            $top->execute();
+
+
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -93,6 +97,18 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                 </td>
             </tr>
 	</table>
+    <table>
+        <th>Top Posts</th>
+        <th>Number of Views</th>
+        <?php
+        while($tpost = $top->fetch()) {
+            echo '<tr>';
+            echo '<td>' . $tpost['postTitle'] . '</td>';
+            echo '<td>' . $tpost['views'] . '</td>';
+            echo '</tr>';
+        }
+        ?>
+    </table>
 
 	<p><a href='add-post.php'>Add Post</a></p>
 

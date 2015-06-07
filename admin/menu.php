@@ -1,6 +1,6 @@
 <h1><?php echo $site_title; ?></h1>
 <ul id='adminmenu'>
-    <li><a href="../../" target="_blank">View Website</a></li>
+    <li><a href="index.php" target="_blank">Admin Index</a></li>
     <li><a href="../" target="_blank">View Blog</a></li>
 	<li><a href='list-post.php'>Blog Posts</a></li>
 	<li><a href='categories.php'>Categories</a></li>
