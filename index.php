@@ -42,13 +42,13 @@ require_once('includes/config.php');
                     //instantiate the class
                     $pages = new Paginator('5','p');
 
-//collect all records fro the next function
+                    //collect all records fro the next function
                     $stmt = $db->query('SELECT postID FROM blog_posts_seo');
 
-//determine the total number of records
+                    //determine the total number of records
                     $pages->set_total($stmt->rowCount());
 
-                    $stmt = $db->query('SELECT p.postID, m.username, p.postTitle,
+                    $stmt = $db->query('SELECT p.postID, m.name, p.postTitle,
                         p.postSlug, p.postDesc, p.postDate, p.views FROM blog_posts_seo p,
                         blog_members m WHERE p.poster = m.memberID AND postDate
                         <= NOW() AND published = 1 ORDER BY postID DESC ' .
@@ -59,7 +59,7 @@ require_once('includes/config.php');
                         echo '<div>';
                         echo '<h1><a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></h1>';
                         if(isset($_SESSION) && $_SESSION['uid'] > 0) { echo '[<a href="/admin/edit-post.php?id='.$row["postID"].'">EDIT</a>]';}
-                        echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>'.$row['username']. '</b> in ';
+                        echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>'.$row['name']. '</b> in ';
 
                         $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                         $stmt2->execute(array(':postID' => $row['postID']));

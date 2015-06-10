@@ -28,13 +28,15 @@ if(isset($_POST['submit']))
 
 
 
-$stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+$stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
 $stmt->execute(array(':postID' => $_GET['id']));
 $row = $stmt->fetch();
 
-$views = $row['views'] + 1;
-$vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID');
-$vstmt->execute(array(':viewnum' => $views, ':postID' => $_GET['id']));
+if(!isset($_SESSION['uid']) && $_SESSION['uid'] <= 0) {
+    $views = $row['views'] + 1;
+    $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID');
+    $vstmt->execute(array(':viewnum' => $views, ':postID' => $_GET['id']));
+}
 
 //if post does not exists redirect user.
 if($row['postID'] == ''){
@@ -52,10 +54,10 @@ $cstmt->execute(array(':postid' => $row['postID']));
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>
-            Code Something :: Marc Towler's Blog
+            <?php echo $row['postTitle']; ?> :: Code Something
         </title>
-        <meta name="description" content="Website Development and Design blog written by Marc Towler, includes game
-                    reviews and book reviews" />
+        <meta name="author" content="<?php echo $row['name']; ?>" />
+        <meta name="description" content="<?php echo strip_tags($row['postDesc']); ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -82,7 +84,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                 <?php
                 echo '<div>';
                 echo '<h1>'.$row['postTitle'].'</h1>';
-                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['username'] . '</b> in ';
+                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['name'] . '</b> in ';
 
                 $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                 $stmt2->execute(array(':postID' => $row['postID']));

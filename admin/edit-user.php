@@ -65,9 +65,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 					$hashedpassword = $user->password_hash($password, PASSWORD_BCRYPT);
 
 					//update into database
-					$stmt = $db->prepare('UPDATE blog_members SET username = :username, password = :password, email = :email WHERE memberID = :memberID') ;
+					$stmt = $db->prepare('UPDATE blog_members SET username = :username, name = :name, password = :password, email = :email WHERE memberID = :memberID') ;
 					$stmt->execute(array(
 						':username' => $username,
+                        ':name' => $name,
 						':password' => $hashedpassword,
 						':email' => $email,
 						':memberID' => $memberID
@@ -77,9 +78,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 				} else {
 
 					//update database
-					$stmt = $db->prepare('UPDATE blog_members SET username = :username, email = :email WHERE memberID = :memberID') ;
+					$stmt = $db->prepare('UPDATE blog_members SET username = :username, name = :name, email = :email WHERE memberID = :memberID') ;
 					$stmt->execute(array(
 						':username' => $username,
+                        ':name' => $name,
 						':email' => $email,
 						':memberID' => $memberID
 					));
@@ -112,7 +114,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 		try {
 
-			$stmt = $db->prepare('SELECT memberID, username, email FROM blog_members WHERE memberID = :memberID') ;
+			$stmt = $db->prepare('SELECT memberID, username, name, email FROM blog_members WHERE memberID = :memberID') ;
 			$stmt->execute(array(':memberID' => $_GET['id']));
 			$row = $stmt->fetch(); 
 
@@ -127,6 +129,9 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 		<p><label>Username</label><br />
 		<input type='text' name='username' value='<?php echo $row['username'];?>'></p>
+
+        <p><label>Name</label><br />
+        <input type='text' name='name' value='<?php echo $row['name'];?>'></p>
 
 		<p><label>Password (only to change)</label><br />
 		<input type='password' name='password' value=''></p>
