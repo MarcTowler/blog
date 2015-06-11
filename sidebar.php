@@ -57,6 +57,11 @@
     } else {
 ?>
     <li>
+        <a href="http://marctowler.co.uk/rss.php" title="Subscribe to the RSS feed">
+            <img src="img/rss.png" height="50" width="50" />
+        </a>
+    </li>
+    <li>
         <a href="/admin">
             Login
         </a>

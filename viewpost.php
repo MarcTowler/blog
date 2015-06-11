@@ -64,6 +64,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
 
         <link rel="stylesheet" href="css/normalize.css" />
         <link rel="stylesheet" href="css/main.css">
+        <link rel="alternate" href="rss.php" title="My RSS feed" type="application/rss+xml" />
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
