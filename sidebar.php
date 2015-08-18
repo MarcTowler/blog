@@ -1,3 +1,6 @@
+<a href="http://www.sitepoint.com">
+    <img src="img/ambassador.png" />
+</a>
 <h2>Recent Posts</h2>
 
 
