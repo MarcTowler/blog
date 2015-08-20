@@ -198,7 +198,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                     g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
                 })();
             </script>
-            <noscript><p><img src="http://marctowler.co.uk/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+            <noscript><p><img src="https://marctowler.co.uk/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
             <!-- End Piwik Code -->
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

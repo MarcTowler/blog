@@ -8,7 +8,7 @@ $rssfeed = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $rssfeed .= '<rss version="2.0">';
 $rssfeed .= '<channel>';
 $rssfeed .= '<title>Code Something</title>';
-$rssfeed .= '<link>http://www.marctowler.co.uk/</link>';
+$rssfeed .= '<link>https://www.marctowler.co.uk/</link>';
 $rssfeed .= '<description>Website Development and Design blog written by Marc Towler, includes game
                     reviews and book reviews</description>';
 $rssfeed .= '<language>en-gb</language>';
@@ -22,7 +22,7 @@ while($row = $stmt->fetch())
     $rssfeed .= '<item>';
     $rssfeed .= '<title>' . $row["postTitle"] . '</title>';
     $rssfeed .= '<description>' .  html_entity_decode(strip_tags($row["postDesc"])) . '</description>';
-    $rssfeed .= '<link>http://marctowler.co.uk/viewpost.php?id=' . $row["postID"] . '</link>';
+    $rssfeed .= '<link>https://marctowler.co.uk/viewpost.php?id=' . $row["postID"] . '</link>';
     $rssfeed .= '<pubDate>' .date("jS M Y H:i:s", strtotime($row["postDate"])) . '</pubDate>';
     $rssfeed .= '</item>';
 }

@@ -26,7 +26,7 @@ require_once('includes/config.php');
     </head>
     <body>
         <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
         <div id="wrapper">
@@ -111,7 +111,7 @@ require_once('includes/config.php');
                 g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
             })();
         </script>
-        <noscript><p><img src="http://marctowler.co.uk/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+        <noscript><p><img src="https://marctowler.co.uk/piwik/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
         <!-- End Piwik Code -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

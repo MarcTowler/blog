@@ -1,4 +1,4 @@
-<a href="http://www.sitepoint.com">
+<a href="https://www.sitepoint.com">
     <img src="img/ambassador.png" />
 </a>
 <h2>Recent Posts</h2>
@@ -60,7 +60,7 @@
     } else {
 ?>
     <li>
-        <a href="http://marctowler.co.uk/rss.php" title="Subscribe to the RSS feed">
+        <a href="https://marctowler.co.uk/rss.php" title="Subscribe to the RSS feed">
             <img src="img/rss.png" height="50" width="50" />
         </a>
     </li>
