@@ -27,8 +27,12 @@ if(isset($_POST['submit']))
 }
 
 
-
-$stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
+{
+    $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 0');
+} else {
+    $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+}
 $stmt->execute(array(':postID' => $_GET['id']));
 $row = $stmt->fetch();
 
@@ -84,6 +88,10 @@ $cstmt->execute(array(':postid' => $row['postID']));
 
                 <?php
                 echo '<div>';
+                if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
+                {
+                    echo '<h1 style="color: red">This is a Post Preview, This is Not Live</h1>';
+                }
                 echo '<h1>'.$row['postTitle'].'</h1>';
                 echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['name'] . '</b> in ';
 

@@ -92,6 +92,7 @@ if(isset($_GET['pub'])) {
             <th>Title</th>
             <th>Date</th>
             <th>Action</th>
+            <th></th>
         </tr>
         <?php
         try {
@@ -129,6 +130,14 @@ if(isset($_GET['pub'])) {
                     <?php
                     }
                     ?>
+                </td>
+                <td>
+                    <?php
+                    if($row['published'] == 0)
+                    {
+                    ?>
+                    <a href="./viewpost.php?id=<?php echo $row['postID'];?>&p=true" target="_blank">Preview Post</a>
+                    <?php } ?>
                 </td>
 
                 <?php
