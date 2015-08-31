@@ -12,7 +12,7 @@ if($row['catID'] == ''){
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Blog - <?php echo $row['catTitle'];?></title>
+    <title><?php echo SITENAME . ' - ' . $row['catTitle'];?></title>
     <link rel="stylesheet" href="style/normalize.css">
     <link rel="stylesheet" href="style/main.css">
     <link rel="alternate" href="rss.php" title="My RSS feed" type="application/rss+xml" />

@@ -58,7 +58,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>
-            <?php echo $row['postTitle']; ?> :: Code Something
+            <?php echo $row['postTitle'] . " : " . SITENAME;?>
         </title>
         <meta name="author" content="<?php echo $row['name']; ?>" />
         <meta name="description" content="<?php echo strip_tags($row['postDesc']); ?>" />

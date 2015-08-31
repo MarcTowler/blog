@@ -8,6 +8,8 @@ define('DBUSER','');
 define('DBPASS','');
 define('DBNAME','');
 
+define('SITENAME', 'Code Something');
+
 $db = new PDO("mysql:host=".DBHOST.";port=8889;dbname=".DBNAME, DBUSER, DBPASS);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //set timezone
@@ -37,6 +39,8 @@ function __autoload($class) {
 
 }
 $user = new User($db);
+
+$seo = false;
 
 include_once('functions.php');
 ?>

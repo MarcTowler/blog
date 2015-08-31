@@ -7,7 +7,7 @@ require_once('includes/config.php');
 $rssfeed = '<?xml version="1.0" encoding="ISO-8859-1"?>';
 $rssfeed .= '<rss version="2.0">';
 $rssfeed .= '<channel>';
-$rssfeed .= '<title>Code Something</title>';
+$rssfeed .= '<title>' . SITENAME . '</title>';
 $rssfeed .= '<link>https://www.marctowler.co.uk/</link>';
 $rssfeed .= '<description>Website Development and Design blog written by Marc Towler, includes game
                     reviews and book reviews</description>';

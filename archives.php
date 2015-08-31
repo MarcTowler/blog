@@ -11,7 +11,7 @@ require_once('includes/config.php');
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>
-        Code Something :: Marc Towler's Blog
+        <?php echo SITENAME; ?>
     </title>
     <meta name="description" content="Website Development and Design blog written by Marc Towler, includes game
                     reviews and book reviews" />
