@@ -32,7 +32,7 @@ require_once('includes/config.php');
 <div id="wrapper">
 
 
-    <h1>Blog</h1>
+    <h1><?php echo SITENAME; ?></h1>
     <hr />
     <p><a href="./">Blog Index</a></p>
 

@@ -31,7 +31,7 @@ require_once('includes/config.php');
 
         <div id="wrapper">
             <h1>
-                Code Something
+                <?php echo SITENAME; ?>
             </h1>
 
             <hr />

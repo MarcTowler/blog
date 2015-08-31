@@ -75,7 +75,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
 
         <div id="wrapper">
             <h1>
-                Code Something
+                <?php echo SITENAME; ?>
             </h1>
             <hr />
 
