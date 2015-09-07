@@ -1,9 +1,11 @@
-<?php require('includes/config.php');
+<?php
+require('includes/config.php');
 
 function section_status()
 {
     return true;
 }
+
 
 
 //lets see if a comment has been submitted?
@@ -51,6 +53,9 @@ if($row['postID'] == ''){
 
 $cstmt = $db->prepare('SELECT cid, name, email, comment, post_date FROM blog_comments WHERE pid = :postid AND published = 1');
 $cstmt->execute(array(':postid' => $row['postID']));
+
+//track
+whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
