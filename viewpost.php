@@ -38,7 +38,7 @@ if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
 $stmt->execute(array(':postID' => $_GET['id']));
 $row = $stmt->fetch();
 
-if(!isset($_SESSION['uid']) && $_SESSION['uid'] <= 0) {
+if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
     $views = $row['views'] + 1;
     $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID');
     $vstmt->execute(array(':viewnum' => $views, ':postID' => $_GET['id']));
@@ -62,6 +62,7 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>
             <?php echo $row['postTitle'] . " : " . SITENAME;?>
         </title>

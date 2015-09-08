@@ -14,6 +14,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
         <title>
             <?php echo SITENAME; ?>
         </title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="description" content="Website Development and Design blog written by Marc Towler, includes game
                     reviews and book reviews" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +61,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
 
                         echo '<div>';
                         echo '<h1><a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></h1>';
-                        if(isset($_SESSION) && $_SESSION['uid'] > 0) { echo '[<a href="/admin/edit-post.php?id='.$row["postID"].'">EDIT</a>]';}
+                        if(isset($_SESSION['uid']) && $_SESSION['uid'] > 0) { echo '[<a href="/admin/edit-post.php?id='.$row["postID"].'">EDIT</a>]';}
                         echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])).' by <b>'.$row['name']. '</b> in ';
 
                         $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');

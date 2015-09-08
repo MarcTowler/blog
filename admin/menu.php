@@ -1,4 +1,4 @@
-<h1><?php echo $site_title; ?></h1>
+<h1><?php echo SITENAME; ?></h1>
 <ul id='adminmenu'>
     <li><a href="index.php">Admin Index</a></li>
     <li><a href="../" target="_blank">View Blog</a></li>

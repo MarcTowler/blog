@@ -8,7 +8,7 @@
  */
 define( 'SITEMAP_DIR', './' );
 // With trailing slash!
-define( 'SITEMAP_DIR_URL', 'http://www.marctowler.co.uk/' );
+define( 'SITEMAP_DIR_URL', 'https://www.marctowler.co.uk/' );
 // Whether or not the script should check recursively.
 define( 'RECURSIVE', true );
 // The file types, you can just add them on, so 'pdf', 'php' would work
