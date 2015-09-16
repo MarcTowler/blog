@@ -30,7 +30,7 @@ if($row['catID'] == ''){
 
         <?php
         try {
-            $pages = new Paginator('1','p');
+            $pages = new Paginator('5','p');
             $stmt = $db->prepare('SELECT blog_posts_seo.postID FROM blog_posts_seo, blog_post_cats WHERE blog_posts_seo.postID = blog_post_cats.postID AND blog_post_cats.catID = :catID');
             $stmt->execute(array(':catID' => $row['catID']));
             //pass number of records to
@@ -55,7 +55,7 @@ if($row['catID'] == ''){
 
                 echo '<div>';
                 echo '<h1><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></h1>';
-                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). 'by <b>' . $row['username'] . '</b> in ';
+                echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['username'] . '</b> in ';
                 $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                 $stmt2->execute(array(':postID' => $row['postID']));
                 $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
