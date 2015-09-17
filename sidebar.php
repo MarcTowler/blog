@@ -1,12 +1,21 @@
-<a href="https://www.sitepoint.com">
-    <img src="img/ambassador.png" />
-</a>
-<h2>Recent Posts</h2>
+<ul>
+    <li>
+        <a href="index.php">
+            Blog
+        </a>
+    </li>
+    <li>
+        <a href="about.php">
+            About The Blog & Author
+        </a>
+    </li>
+</ul>
+<h2>Popular Posts</h2>
 
 
 <ul>
     <?php
-    $stmt = $db->query('SELECT postTitle, postSlug FROM blog_posts_seo WHERE published = 1 ORDER BY postID DESC LIMIT 5');
+    $stmt = $db->query('SELECT postTitle, postSlug FROM blog_posts_seo WHERE published = 1 ORDER BY views DESC LIMIT 5');
     while($row = $stmt->fetch()){
         echo '<li><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></li>';
     }
@@ -34,7 +43,7 @@
     while($row = $stmt->fetch()){
         $monthName = date("F", mktime(0, 0, 0, $row['Month'], 10));
         $slug = 'a-'.$row['Month'].'-'.$row['Year'];
-        echo "<li><a href='$slug'>$monthName</a></li>";
+        echo "<li><a href='$slug'>$monthName " . $row['Year'] . "</a></li>";
     }
     ?>
 </ul>
