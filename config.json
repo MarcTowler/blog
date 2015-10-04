@@ -1,0 +1,14 @@
+{
+  "email": {
+    "from": "github-hook@marctowler.co.uk",
+    "to": "marc@marctowler.co.uk"
+  },
+  "endpoints": [
+    {
+      "repo": "MarcTowler/blog",
+      "branch": "master",
+      "action": "something has been changed on the server",
+      "run": "ttc2.php"
+    }
+  ]
+}
