@@ -172,13 +172,13 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
 
                             <label for="comment_author" class="required">Your name</label>
                             <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
-
+                            <br />
                             <label for="email" class="required">Your email</label>
                             <input type="email" name="email" id="email" value="" tabindex="2" required="required">
-
+                            <br />
                             <label for="comment" class="required">Your message</label>
                             <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required"></textarea>
-
+                            <br />
                             <input type="hidden" name="comment_post_ID" value="<?php echo($row['postID']); ?>" id="comment_post_ID" />
                             <input name="submit" type="submit" value="Submit comment" />
 
