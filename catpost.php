@@ -37,7 +37,7 @@ if($row['catID'] == ''){
             $pages->set_total($stmt->rowCount());
             $stmt = $db->prepare('
 					SELECT 
-						blog_posts_seo.postID, blog_posts_seo.postTitle, blog_posts_seo.postSlug, blog_posts_seo.postDesc, blog_posts_seo.postDate, blog_members.username
+						blog_posts_seo.postID, blog_posts_seo.postTitle, blog_posts_seo.postDesc, blog_posts_seo.postDate, blog_members.username
 					FROM 
 						blog_posts_seo,
 						blog_post_cats,
@@ -47,6 +47,7 @@ if($row['catID'] == ''){
 						 AND blog_members.memberID = blog_posts_seo.poster
 						 AND blog_post_cats.catID = :catID
 						 AND blog_posts_seo.postDate <= NOW()
+						 AND blog_posts_seo.published = 1
 					ORDER BY 
 						postID DESC
 					'.$pages->get_limit());
@@ -54,7 +55,7 @@ if($row['catID'] == ''){
             while($row = $stmt->fetch()){
 
                 echo '<div>';
-                echo '<h1><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></h1>';
+                echo '<h1><a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></h1>';
                 echo '<p>Posted on '.date('jS M Y H:i:s', strtotime($row['postDate'])). ' by <b>' . $row['username'] . '</b> in ';
                 $stmt2 = $db->prepare('SELECT catTitle, catSlug	FROM blog_cats, blog_post_cats WHERE blog_cats.catID = blog_post_cats.catID AND blog_post_cats.postID = :postID');
                 $stmt2->execute(array(':postID' => $row['postID']));
@@ -67,7 +68,7 @@ if($row['catID'] == ''){
                 echo implode(", ", $links);
                 echo '</p>';
                 echo '<p>'.$row['postDesc'].'</p>';
-                echo '<p><a href="'.$row['postSlug'].'">Read More</a></p>';
+                echo '<p><a href="viewpost.php?id='.$row['postID'].'">Read More</a></p>';
                 echo '</div>';
             }
             echo $pages->page_links('c-'.$_GET['id'].'&');
