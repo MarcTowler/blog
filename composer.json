@@ -1,1 +1,3 @@
-{}
+{
+  "dintel/php-github-webhook": "0.1.*"
+}
