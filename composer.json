@@ -1,3 +1,5 @@
 {
-  "dintel/php-github-webhook": "0.1.*"
+  "require": {
+    "dintel/php-github-webhook": "0.1.*"
+  }
 }
