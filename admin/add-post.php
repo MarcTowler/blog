@@ -11,7 +11,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
   <title>Admin - Add Post</title>
   <link rel="stylesheet" href="../style/normalize.css">
   <link rel="stylesheet" href="../style/main.css">
-  <script src="/js/ckeditor/ckeditor.js"></script>
+  <script src="../js/ckeditor/ckeditor.js"></script>
   <script>
 	  CKEDITOR.replace( 'postDesc' );
 	  CKEDITOR.replace( 'postCont' );
