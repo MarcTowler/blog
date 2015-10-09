@@ -9,7 +9,7 @@ if( $user->is_logged_in() ){ header('Location: index.php'); }
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title><?php echo $site_title; ?> Admin Login</title>
+  <title><?php echo SITENAME; ?> Admin Login</title>
   <link rel="stylesheet" href="../style/normalize.css">
   <link rel="stylesheet" href="../style/main.css">
 </head>
