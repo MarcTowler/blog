@@ -1,9 +1,17 @@
 <?php
+//include config
+require_once('../includes/config.php');
+
+//if not logged in redirect to login page
+if(!$user->is_logged_in()){ header('Location: login.php'); }
+?>
 ?><!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>File Manager</title>
+    <link rel="stylesheet" href="../style/normalize.css">
+    <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" type="text/css" href="fm/styles/reset.css" />
     <link rel="stylesheet" type="text/css" href="fm/scripts/jquery.filetree/jqueryFileTree.css" />
     <link rel="stylesheet" type="text/css" href="fm/scripts/jquery.contextmenu/jquery.contextMenu-1.01.css" />
@@ -25,7 +33,9 @@
     <!-- CSS dynamically added using 'config.options.theme' defined in config file -->
 </head>
 <body>
-<div id="loading-wrap"><!-- loading wrapper / removed when loaded --></div>
+<div id="wrapper"><?php include_once("menu.php"); ?>
+<h1>Page Unavailable</h1></div><!--
+<div id="loading-wrap"><!-- loading wrapper / removed when loaded --</div>
 <div>
     <form id="uploader" method="post">
         <h1></h1>
@@ -81,6 +91,6 @@
     <script type="text/javascript" src="fm/scripts/jquery.impromptu-3.2.min.js"></script>
     <script type="text/javascript" src="fm/scripts/jquery.tablesorter-2.7.2.min.js"></script>
     <script type="text/javascript" src="fm/scripts/filemanager.min.js"></script>
-</div>
+</div>-->
 </body>
 </html>

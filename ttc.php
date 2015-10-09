@@ -1,11 +1,21 @@
 <?php
+require(__DIR__ . "/vendor/autoload.php");
+
+use GitHubWebhook\Handler;
+
+$handler = new Handler("LE2p!e5y!C3J2-v?", __DIR__);
+if($handler->handle()) {
+    echo $handler->getGitOutput();
+} else {
+    echo "Wrong secret";
+}
 /*
  * Endpoint for Github Webhook URLs
  *
  * see: https://help.github.com/articles/post-receive-hooks
  *
  */
-// script errors will be send to this email:
+/*// script errors will be send to this email:
 $error_mail = "marc@marctowler.co.uk";
 function run() {
     global $rawInput;
@@ -74,4 +84,4 @@ try {
 } catch ( Exception $e ) {
     $msg = $e->getMessage();
     mail($error_mail, $msg, ''.$e);
-}
+}*/
