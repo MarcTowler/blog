@@ -4,9 +4,9 @@ session_start();
 
 //database credentials
 define('DBHOST','localhost');
-define('DBUSER','');
-define('DBPASS','');
-define('DBNAME','');
+define('DBUSER','root');
+define('DBPASS','06061990');
+define('DBNAME','c1blog');
 
 define('SITENAME', 'Code Something');
 

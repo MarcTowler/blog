@@ -63,6 +63,6 @@ $sy_icons = array(
 $foldershistory = array();
 $useruploadroot = "http://$_SERVER[HTTP_HOST]";
 
-$useruploadfolder = "ckeditor/plugins/imageuploader/uploads";
-$useruploadpath = "../../../$useruploadfolder/";
+$useruploadfolder = "img";
+$useruploadpath = "../$useruploadfolder/";
 $foldershistory[] = $useruploadfolder;
