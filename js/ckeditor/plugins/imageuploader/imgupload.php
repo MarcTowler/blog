@@ -15,7 +15,7 @@ require(__DIR__ . '/pluginconfig.php');
 $info = pathinfo($_FILES["upload"]["name"]);
 $ext = $info['extension'];
 $target_dir = $useruploadpath;
-$ckpath = "ckeditor/plugins/imageuploader/$useruploadpath";
+$ckpath = "../ckeditor/plugins/imageuploader/$useruploadpath";
 $randomLetters = $rand = substr(md5(microtime()),rand(0,26),6);
 $imgnumber = count(scandir($target_dir));
 $filename = "$imgnumber$randomLetters.$ext";
