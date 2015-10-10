@@ -11,8 +11,8 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
   <title>Admin - Add Post</title>
   <link rel="stylesheet" href="../style/normalize.css">
   <link rel="stylesheet" href="../style/main.css">
-  <script src="../js/ckeditor/ckeditor.js"></script>
-
+  <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+	<script>tinymce.init({selector:'textarea'});</script>
 </head>
 <body>
 
@@ -141,7 +141,6 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<p><input type='submit' name='submit' value='Submit'></p>
 
 	</form>
-	<script>
-		CKEDITOR.replaceAll();
-	</script>
 </div>
+</body>
+</html>
