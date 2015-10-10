@@ -6,4 +6,4 @@
 *.name
 ttc.php
 vendor/*
-admin/fm*
+includes/config.php
