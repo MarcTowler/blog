@@ -1,6 +1,5 @@
 <?php
 //include config
-ini_set('DISPLAY_ERRORS', 1);
 require_once('../includes/config.php');
 
 
@@ -59,6 +58,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $top = $db->query("SELECT postTitle, views FROM blog_posts_seo order by views DESC limit 5");
             $top->execute();
 
+            $catview;
 
         } catch(PDOException $e) {
             echo $e->getMessage();
@@ -108,8 +108,23 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             echo '</tr>';
         }
         ?>
-    </table>
-
+    </table><!--
+    <table>
+        <th>Categories</th>
+        <th>Post Count</th>
+        <th>Total Views</th>
+        <th>Average Views</th>
+        <?php/*
+        while($catview = $cats->fetch()) {
+            echo '<tr>';
+            echo '<td>' . $catview['catTitle'] . '</td>';
+            echo '<td>' . $catview['postCount'] . '</td>';
+            echo '<td>' . $catview['totalView'] . '</td>';
+            echo '<td>' . $catview['average'] . '</td>';
+            echo '</tr>';
+        }*/
+        ?>
+    </table>-->
 	<p><a href='add-post.php'>Add Post</a></p>
 
 </div>

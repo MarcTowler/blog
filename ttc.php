@@ -5,6 +5,7 @@ use GitHubWebhook\Handler;
 
 $handler = new Handler("LE2p!e5y!C3J2-v?", __DIR__);
 if($handler->handle()) {
+    file_put_contents("/tmp/git.log", $handler->getGitOutput(), FILE_APPEND);
     echo $handler->getGitOutput();
 } else {
     echo "Wrong secret";
