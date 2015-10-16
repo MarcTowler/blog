@@ -108,25 +108,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             echo '</tr>';
         }
         ?>
-    </table><!--
-    <table>
-        <th>Categories</th>
-        <th>Post Count</th>
-        <th>Total Views</th>
-        <th>Average Views</th>
-        <?php/*
-        while($catview = $cats->fetch()) {
-            echo '<tr>';
-            echo '<td>' . $catview['catTitle'] . '</td>';
-            echo '<td>' . $catview['postCount'] . '</td>';
-            echo '<td>' . $catview['totalView'] . '</td>';
-            echo '<td>' . $catview['average'] . '</td>';
-            echo '</tr>';
-        }*/
-        ?>
-    </table>-->
-	<p><a href='add-post.php'>Add Post</a></p>
-
+    </table>
 </div>
 
 </body>
