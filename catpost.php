@@ -11,7 +11,6 @@ if($row['catID'] == ''){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
     <title><?php echo SITENAME . ' - ' . $row['catTitle'];?></title>
     <link rel="stylesheet" href="style/normalize.css">
     <link rel="stylesheet" href="style/main.css">
