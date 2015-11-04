@@ -46,7 +46,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
                     $pages = new Paginator('5','p');
 
                     //collect all records fro the next function
-                    $stmt = $db->query('SELECT postID FROM blog_posts_seo');
+                    $stmt = $db->query('SELECT postID FROM blog_posts_seo where published = 1');
 
                     //determine the total number of records
                     $pages->set_total($stmt->rowCount());

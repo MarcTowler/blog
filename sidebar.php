@@ -15,9 +15,9 @@
 
 <ul>
     <?php
-    $stmt = $db->query('SELECT postTitle, postSlug FROM blog_posts_seo WHERE published = 1 ORDER BY views DESC LIMIT 5');
+    $stmt = $db->query('SELECT postTitle, postID FROM blog_posts_seo WHERE published = 1 ORDER BY views DESC LIMIT 5');
     while($row = $stmt->fetch()){
-        echo '<li><a href="'.$row['postSlug'].'">'.$row['postTitle'].'</a></li>';
+        echo '<li><a href="'.$row['postID'].'">'.$row['postTitle'].'</a></li>';
     }
     ?>
 </ul>
@@ -27,7 +27,7 @@
 
 <ul>
     <?php
-    $stmt = $db->query('SELECT catTitle, catSlug FROM blog_cats ORDER BY catID DESC');
+    $stmt = $db->query('SELECT catTitle, catSlug FROM blog_cats ORDER BY catTitle DESC');
     while($row = $stmt->fetch()){
         echo '<li><a href="c-'.$row['catSlug'].'">'.$row['catTitle'].'</a></li>';
     }

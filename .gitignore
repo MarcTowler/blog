@@ -4,3 +4,8 @@
 *.xml
 *.iml
 *.name
+ttc.php
+vendor/*
+includes/config.php
+ttc.php
+*.log
