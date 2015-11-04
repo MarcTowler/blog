@@ -17,7 +17,7 @@
     <?php
     $stmt = $db->query('SELECT postTitle, postID FROM blog_posts_seo WHERE published = 1 ORDER BY views DESC LIMIT 5');
     while($row = $stmt->fetch()){
-        echo '<li><a href="'.$row['postID'].'">'.$row['postTitle'].'</a></li>';
+        echo '<li><a href="viewpost.php?id='.$row['postID'].'">'.$row['postTitle'].'</a></li>';
     }
     ?>
 </ul>
