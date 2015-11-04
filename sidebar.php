@@ -27,7 +27,7 @@
 
 <ul>
     <?php
-    $stmt = $db->query('SELECT catTitle, catSlug FROM blog_cats ORDER BY catTitle DESC');
+    $stmt = $db->query('SELECT catTitle, catSlug FROM blog_cats ORDER BY catTitle ASC');
     while($row = $stmt->fetch()){
         echo '<li><a href="c-'.$row['catSlug'].'">'.$row['catTitle'].'</a></li>';
     }
