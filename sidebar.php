@@ -22,7 +22,7 @@
     ?>
 </ul>
 
-<h2>Catgories</h2>
+<h2>Categories</h2>
 
 
 <ul>
