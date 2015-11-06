@@ -62,6 +62,12 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $error[] = 'Please select if you wish to publish now.';
         }
 
+		if($edit == '0' && $publish == '1')
+		{
+			//if it is a new post that we are editing then update the timestamp
+			$postDate = date("Y-m-d H:i:s");
+		}
+
 		if(!isset($error)){
 
 			try {
@@ -149,8 +155,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             if($row['published'])
             {
                 echo '<input type="radio" name="publish" value="1" checked="checked" />Yes <input type="radio" name="publish" value="0" />No</p>';
+				echo '<input type="hidden" name="edit" value="1" />';
             } else {
-               echo '<input type="radio" name="publish" value="1" />Yes <input type="radio" name="publish" value="0" checked="checked" />No</p>';
+                echo '<input type="radio" name="publish" value="1" />Yes <input type="radio" name="publish" value="0" checked="checked" />No</p>';
+				echo '<input type="hidden" name="edit" value="0" />';
             }
             ?>
 
