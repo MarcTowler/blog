@@ -102,6 +102,8 @@ p,li {
     line-height: 1.5em;
 }
 
+h1{font-variant: small-caps;}
+
 a {
     color: #EF1F2F;
     text-decoration: none;
