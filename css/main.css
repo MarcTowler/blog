@@ -41,18 +41,19 @@ ul {
 
 #wrapper {
     margin:auto;
-    width:960px;
+    max-width:960px;
 }
 
 #main {
     float:left;
-    width:640px;
+    width:100%;
     margin-right:20px;
 }
 
 #sidebar {
     float:right;
     width:300px;
+    display:none;
 }
 
 #login {
