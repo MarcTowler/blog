@@ -142,7 +142,7 @@ if(isset($_GET['pub'])) {
                     <?php
                     } else {
                     ?>
-                    <a href="viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
+                    <a href="./viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
                     <?php
                     }?>
                 </td>
