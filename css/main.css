@@ -94,6 +94,8 @@ ul {
     -webkit-border-radius: 0.5em;
 }
 
+h1{font-variant:small-caps;}
+
 p,li {
     color: #555555;
     font-size: 16px;
