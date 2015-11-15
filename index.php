@@ -30,7 +30,13 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+        <div id="nav">
+            <ul>
+                <li><a href="javascript://">Archives</a></li>
+                <li><a href="javascript://">Categories</a></li>
+                <li><a href="javascript://">RSS Feed</a></li>
+            </ul>
+        </div>
         <div id="wrapper">
             <h1>
                 <?php echo SITENAME; ?>
