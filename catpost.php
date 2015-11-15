@@ -11,8 +11,8 @@ if($row['catID'] == ''){
 <html lang="en">
 <head>
     <title><?php echo SITENAME . ' - ' . $row['catTitle'];?></title>
-    <link rel="stylesheet" href="style/normalize.css">
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="alternate" href="rss.php" title="My RSS feed" type="application/rss+xml" />
 </head>
 <body>
