@@ -90,6 +90,7 @@ if(isset($_GET['pub'])) {
     <table>
         <tr>
             <th>Title</th>
+            <th>Views</th>
             <th>Date</th>
             <th>Action</th>
             <th></th>
@@ -106,11 +107,12 @@ if(isset($_GET['pub'])) {
 //determine the total number of records
             $pages->set_total($stmt->rowCount());
 
-            $stmt = $db->query('SELECT postID, postTitle, postDate, published FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
+            $stmt = $db->query('SELECT postID, postTitle, postDate, published, views FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
                 echo '<td>'.$row['postTitle'].'</td>';
+                echo '<td>'.$row['views'].'</td>';
                 echo '<td>'.date('jS M Y', strtotime($row['postDate'])).'</td>';
                 ?>
 
