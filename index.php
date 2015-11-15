@@ -38,9 +38,9 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
 
             <div id="nav">
                 <ul>
-                    <li><a href="javascript://">Archives</a></li>
-                    <li><a href="javascript://">Categories</a></li>
-                    <li><a href="javascript://">RSS Feed</a></li>
+                    <li><a href="archives.php">Archives</a></li>
+                    <li><a href="catpost.php">Categories</a></li>
+                    <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a></li>
                 </ul>
             </div>
 
