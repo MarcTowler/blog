@@ -93,7 +93,7 @@ if(isset($_GET['pub'])) {
             <th>Views</th>
             <th>Date</th>
             <th>Action</th>
-            <th></th>
+            <th>Go to Post</th>
         </tr>
         <?php
         try {
@@ -139,7 +139,12 @@ if(isset($_GET['pub'])) {
                     {
                     ?>
                     <a href="./viewpost.php?id=<?php echo $row['postID'];?>&p=true" target="_blank">Preview Post</a>
-                    <?php } ?>
+                    <?php
+                    } else {
+                    ?>
+                    <a href="viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
+                    <?php
+                    }?>
                 </td>
 
                 <?php
