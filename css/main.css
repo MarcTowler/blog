@@ -54,7 +54,7 @@ ul {
     margin-right:20px;
 }
 
-#nav li{display:inline;}
+#nav ul li{display:inline;}
 
 #sidebar {
     float:right;
