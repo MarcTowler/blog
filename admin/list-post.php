@@ -138,11 +138,11 @@ if(isset($_GET['pub'])) {
                     if($row['published'] == 0)
                     {
                     ?>
-                    <a href="./viewpost.php?id=<?php echo $row['postID'];?>&p=true" target="_blank">Preview Post</a>
+                    <a href="../viewpost.php?id=<?php echo $row['postID'];?>&p=true" target="_blank">Preview Post</a>
                     <?php
                     } else {
                     ?>
-                    <a href="./viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
+                    <a href="../viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
                     <?php
                     }?>
                 </td>
