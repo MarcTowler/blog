@@ -92,7 +92,7 @@ require_once('includes/config.php');
             while($row = $stmt->fetch()){
                 $monthName = date("F", mktime(0, 0, 0, $row['Month'], 10));
                 $slug = 'a-'.$row['Month'].'-'.$row['Year'];
-                echo "<li><a href='$slug'>$monthName " . $row['Year'] . ' ' . $row['Count'] . " posts</a></li>";
+                echo "<li><a href='$slug'>$monthName " . $row['Year'] . '    (' . $row['Count'] . " posts)</a></li>";
             }
             echo('</ul>');
         }
