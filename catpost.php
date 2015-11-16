@@ -20,11 +20,7 @@ if($row['catID'] == ''){
 <div id="wrapper">
     <h1><?php echo SITENAME; ?></h1>
     <div id="nav">
-        <ul>
-            <li><a href="archives.php">Archives</a></li>
-            <li><a href="catpost.php">Categories</a></li>
-            <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a></li>
-        </ul>
+        <?php require_once('nav.php'); ?>
     </div>
     <?php
     if(isset($_GET['id'])) {
@@ -100,11 +96,6 @@ if($row['catID'] == ''){
 ?>
 
     </div>
-
-    <div id='sidebar'>
-        <?php require('sidebar.php'); ?>
-    </div>
-
     <div id='clear'></div>
 
 </div>

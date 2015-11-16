@@ -35,12 +35,8 @@ require_once('includes/config.php');
     <h1><?php echo SITENAME; ?></h1>
     <div id="nav">
         <ul>
-            <li><a href="archives.php">Archives</a></li>
-            <li><a href="catpost.php">Categories</a></li>
-            <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a></li>
-        </ul>
+            <?php require_once('nav.php'); ?>
     </div>
-    <p><a href="./">Blog Index</a></p>
 
     <div id='main'>
 
@@ -103,11 +99,6 @@ require_once('includes/config.php');
         ?>
 
     </div>
-
-    <div id='sidebar'>
-        <?php require('sidebar.php'); ?>
-    </div>
-
     <div id='clear'></div>
 
 </div>

@@ -37,11 +37,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
             </h1>
 
             <div id="nav">
-                <ul>
-                    <li><a href="archives.php">Archives</a></li>
-                    <li><a href="catpost.php">Categories</a></li>
-                    <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a></li>
-                </ul>
+                <?php require_once('nav.php'); ?>
             </div>
 
             <div id="main">
@@ -94,9 +90,6 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
                 }
                 ?>
 
-            </div>
-            <div id='sidebar'>
-                <?php require_once('sidebar.php'); ?>
             </div>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

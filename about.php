@@ -35,7 +35,9 @@ WhereFrom('https://marctowler.co.uk/about.php', 'About Me');
     <h1>
         <?php echo SITENAME; ?>
     </h1>
-    <hr />
+    <div id="nav">
+        <?php require_once('nav.php'); ?>
+    </div>
 
     <div id="main">
         <h2>About <?php echo SITENAME; ?></h2>
@@ -60,9 +62,6 @@ WhereFrom('https://marctowler.co.uk/about.php', 'About Me');
             knowledge at my own pace for a reasonable price.
         </p>
 
-    </div>
-    <div id='sidebar'>
-        <?php require_once('sidebar.php'); ?>
     </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
