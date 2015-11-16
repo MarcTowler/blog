@@ -1,7 +1,8 @@
 <ul>
-    <li><a href="archives.php">Archives</a></li>
-    <li><a href="catpost.php">Categories</a></li>
-    <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a></li>
+    <li><a href="index.php">Home</a> |</li>
+    <li><a href="archives.php">Archives</a> |</li>
+    <li><a href="catpost.php">Categories</a> |</li>
+    <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a> |</li>
     <?php
     if(isset($_SESSION['uid']) && $_SESSION['uid'] > 0)
     {
@@ -9,7 +10,7 @@
         <li>
             <a href="/admin">
                 Admin Section
-            </a>
+            </a> |
         </li>
         <li>
             <a href="/admin/logout.php">
