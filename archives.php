@@ -49,7 +49,7 @@ require_once('includes/config.php');
                 //set from and to dates
                 $from = date('Y-m-01 00:00:00', strtotime("$year-$month"));
                 $to = date('Y-m-31 23:59:59', strtotime("$year-$month"));
-                $pages = new Paginator('1', 'p');
+                $pages = new Paginator('5', 'p');
                 $stmt = $db->prepare('SELECT postID FROM blog_posts_seo WHERE postDate >= :from AND postDate <= :to AND published = 1');
                 $stmt->execute(array(
                     ':from' => $from,
