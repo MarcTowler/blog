@@ -88,11 +88,11 @@ require_once('includes/config.php');
         } else {
             echo('<p>Please choose a Month to view</p><ul>');
 
-            $stmt = $db->query("SELECT Month(postDate) as Month, Year(postDate) as Year FROM blog_posts_seo GROUP BY Month(postDate), Year(postDate) ORDER BY postDate DESC");
+            $stmt = $db->query("SELECT count(postDate) as Count, Month(postDate) as Month, Year(postDate) as Year FROM blog_posts_seo GROUP BY Month(postDate), Year(postDate) ORDER BY postDate DESC");
             while($row = $stmt->fetch()){
                 $monthName = date("F", mktime(0, 0, 0, $row['Month'], 10));
                 $slug = 'a-'.$row['Month'].'-'.$row['Year'];
-                echo "<li><a href='$slug'>$monthName " . $row['Year'] . "</a></li>";
+                echo "<li><a href='$slug'>$monthName " . $row['Year'] . ' ' . $row['Count'] . " posts</a></li>";
             }
             echo('</ul>');
         }
