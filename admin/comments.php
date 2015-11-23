@@ -46,8 +46,8 @@ if(isset($_GET['del']))
 <head>
     <meta charset="utf-8">
     <title>Comments Admin</title>
-    <link rel="stylesheet" href="../style/normalize.css">
-    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" /></script>
     <script language="JavaScript" type="text/javascript">
         function spam(id, title)

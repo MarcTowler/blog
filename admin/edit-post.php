@@ -8,8 +8,8 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 <html lang="en">
 <head>
   <title>Admin - Edit Post</title>
-  <link rel="stylesheet" href="../style/normalize.css">
-  <link rel="stylesheet" href="../style/main.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
 	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
 	<script>
 		tinymce.init({

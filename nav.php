@@ -12,12 +12,12 @@ $count = $com->fetchColumn(0);
     {
         ?>
         <li>
-            <a href="/admin">
+            <a href="admin">
                 Admin Section (<?php echo($count); ?>)
             </a> |
         </li>
         <li>
-            <a href="/admin/logout.php">
+            <a href="admin/logout.php">
                 Logout
             </a>
         </li>
@@ -25,7 +25,7 @@ $count = $com->fetchColumn(0);
     } else {
         ?>
         <li>
-            <a href="/admin">
+            <a href="admin">
                 Login
             </a>
         </li>

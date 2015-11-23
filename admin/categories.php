@@ -21,8 +21,8 @@ if(isset($_GET['delcat'])){
 <head>
   <meta charset="utf-8">
   <title>Admin - Categories</title>
-  <link rel="stylesheet" href="../style/normalize.css">
-  <link rel="stylesheet" href="../style/main.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
   <script language="JavaScript" type="text/javascript">
   function delcat(id, title)
   {

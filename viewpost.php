@@ -1,23 +1,38 @@
 <?php
 require('includes/config.php');
-
+ini_set('display_errors', 'On');
 function section_status()
 {
     return true;
 }
 
 
-
 //lets see if a comment has been submitted?
 if(isset($_POST['submit']))
 {
-    $ins = $db->prepare('INSERT INTO blog_comments (pid, name, email, post_date, comment) VALUES(:pid, :name, :email, :post_date, :comment)');
-    $ins->execute(array(
-        ':pid'       => $_POST['comment_post_ID'],
-        ':name'      => $_POST['comment_author'],
-        ':email'     => $_POST['email'],
-        ':post_date' => date('Y-m-d H:i:s'),
-        ':comment'   => $_POST['comment']));
+    $ins = $db->prepare('INSERT INTO blog_comments (pid, name, email, post_date, comment, published) VALUES(:pid, :name, :email, :post_date, :comment, :pub)');
+
+    if($user->is_logged_in()) {
+        $auth = $user->get_user();
+
+        if ($auth['memberID'] == "1") {
+            $ins->execute(array(
+                ':pid' => $_POST['comment_post_ID'],
+                ':name' => $_POST['comment_author'],
+                ':email' => $_POST['email'],
+                ':post_date' => date('Y-m-d H:i:s'),
+                ':comment' => $_POST['comment'],
+                ':pub' => 1));
+        }
+    } else {
+        $ins->execute(array(
+            ':pid' => $_POST['comment_post_ID'],
+            ':name' => $_POST['comment_author'],
+            ':email' => $_POST['email'],
+            ':post_date' => date('Y-m-d H:i:s'),
+            ':comment' => $_POST['comment'],
+            ':pub' => 0));
+    }
 
     $added = $db->lastInsertId();
 
@@ -123,7 +138,7 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
                 <?php
                 if(section_status('blog_comment'))
                 {
-                if($cstmt->rowCount() > 1)
+                if($cstmt->rowCount() >= 1)
                 {
                     $has_comments = true;
                 }
@@ -167,12 +182,22 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
                         <h3>Leave a Comment</h3>
 
                         <form action="" method="post" id="commentform">
-
+                            <?php
+                            if($user->is_logged_in()) {
+                                $auth = $user->get_user();
+                            ?>
+                            <label for="comment_author" class="required">Your name</label>
+                            <input type="text" name="comment_author" id="comment_author" value="<?php echo $auth['name']; ?>" tabindex="1" required="required">
+                            <br />
+                            <label for="email" class="required">Your email</label>
+                            <input type="email" name="email" id="email" value="<?php echo $auth['email']; ?>" tabindex="2" required="required">
+                            <?php } else { ?>
                             <label for="comment_author" class="required">Your name</label>
                             <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
                             <br />
                             <label for="email" class="required">Your email</label>
                             <input type="email" name="email" id="email" value="" tabindex="2" required="required">
+                            <?php }?>
                             <br />
                             <label for="comment" class="required">Your message</label>
                             <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required"></textarea>

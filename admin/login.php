@@ -10,8 +10,8 @@ if( $user->is_logged_in() ){ header('Location: index.php'); }
 <head>
   <meta charset="utf-8">
   <title><?php echo SITENAME; ?> Admin Login</title>
-  <link rel="stylesheet" href="../style/normalize.css">
-  <link rel="stylesheet" href="../style/main.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
 

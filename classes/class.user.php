@@ -34,7 +34,6 @@ class User extends Password{
         if($this->password_verify($password,$hashed) == 1){
 
             $_SESSION['loggedin'] = true;
-
             return true;
         }
     }
@@ -43,5 +42,16 @@ class User extends Password{
         session_destroy();
     }
 
+    public function get_user()
+    {
+        if(isset($_SESSION['uid']) && $_SESSION['uid'] == true) {
+            $stmt = $this->_db->prepare('SELECT memberID, name, email FROM blog_members WHERE memberID = :uid');
+            $stmt->execute(array('uid' => $_SESSION['uid']));
+
+            $row = $stmt->fetch();
+
+            return $row;
+        }
+    }
 }
 ?>
