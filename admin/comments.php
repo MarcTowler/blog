@@ -31,6 +31,15 @@ if(isset($_GET['pub']))
     header('Location: comments.php?action=published');
     exit;
 }
+
+if(isset($_GET['del']))
+{
+    $stmt = $db->prepare('DELETE FROM blog_comments WHERE cid = :cid');
+    $stmt->execute(array(':cid' => $_GET['pub'], ':postDate' => date("Y-m-d H:i:s")));
+
+    header('Location: comments.php?action=published');
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="en">
