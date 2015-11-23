@@ -37,7 +37,7 @@ if(isset($_GET['del']))
     $stmt = $db->prepare('DELETE FROM blog_comments WHERE cid = :cid');
     $stmt->execute(array(':cid' => $_GET['del']));
 
-    header('Location: comments.php?action=published');
+    header('Location: comments.php?action=deleted');
     exit;
 }
 ?>
