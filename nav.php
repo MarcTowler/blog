@@ -1,8 +1,3 @@
-<?php
-require_once('../includes/config.php');
-$com = $db->query('SELECT count(id) FROM blog_comments WHERE published = 0');
-$count = $com->fetchColumn(0);
-?>
 <ul>
     <li><a href="index.php">Home</a> |</li>
     <li><a href="archives.php">Archives</a> |</li>
@@ -14,7 +9,7 @@ $count = $com->fetchColumn(0);
         ?>
         <li>
             <a href="/admin">
-                Admin Section (<?php echo($count); ?>)
+                Admin Section (0)
             </a> |
         </li>
         <li>
