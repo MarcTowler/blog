@@ -145,7 +145,7 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
                                         <abbr class="published" title="<?php echo($comment['post_date']); ?>">
                                             <?php echo($comment['post_date']);
                                             if(isset($_SESSION['uid']) && $_SESSION['uid'] > 0) {
-                                                echo '[<a href="/admin/comments.php?spam='.$comment["cid"].'">Delete</a>]';}?>
+                                                echo '[<a href="/admin/comments.php?del='.$comment["cid"].'">Delete</a>]';}?>
                                         </abbr>
 
                                         <address class="vcard author">
