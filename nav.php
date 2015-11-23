@@ -1,4 +1,5 @@
 <?php
+require_once('../includes/config.php');
 $com = $db->query('SELECT count(id) FROM blog_comments WHERE published = 0');
 $count = $com->fetchColumn(0);
 ?>
