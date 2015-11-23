@@ -135,7 +135,7 @@ whereFrom("viewpost.php?id=" . $_GET['id'], $row['postTitle']);
                     </header>
 
                     <ol id="posts-list" class="hfeed<?php echo($has_comments?' has-comments':''); ?>">
-                       <?php if(!$has_comments) { echo('<li class="no-comments">Be the first to add a comment.</li>');?>
+                       <?php if(!$has_comments) { echo('<li class="no-comments">Be the first to add a comment.</li>')};?>
                         <?php
                         while($comment = $cstmt->fetch())
                         {
