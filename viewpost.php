@@ -1,6 +1,6 @@
 <?php
 require('includes/config.php');
-ini_set('display_errors', 'On');
+
 function section_status()
 {
     return true;
