@@ -48,8 +48,7 @@ if(isset($_GET['del']))
     <title>Comments Admin</title>
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/main.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js" /></script>
-    <script language="JavaScript" type="text/javascript">
+        <script language="JavaScript" type="text/javascript">
         function spam(id, title)
         {
             if (confirm("Are you sure you want to mark the comment by '" + title + "' as a spam comment - note this cannot be undone"))
@@ -58,8 +57,6 @@ if(isset($_GET['del']))
             }
         }
 
-
-
         function pub(id, title)
         {
             if (confirm("Are you sure you want to publish the comment by '" + title + "'"))
@@ -67,21 +64,13 @@ if(isset($_GET['del']))
                 window.location.href = 'comments.php?pub=' + id;
             }
         }
-    </script>
-    <script language="JavaScript">
-        $('#select_all').click(function(event) {
-            if(this.checked) {
-                // Iterate each checkbox
-                $(':checkbox').each(function() {
-                    this.checked = true;
-                });
+
+        function toggle(source) {
+            checkboxes = document.getElementsByName('comment[]');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
             }
-            else {
-                $(':checkbox').each(function() {
-                    this.checked = false;
-                });
-            }
-        });
+        }
     </script>
 </head>
 <body>
@@ -97,7 +86,6 @@ if(isset($_GET['del']))
     ?>
     <table>
         <tr>
-            <th><input type="checkbox" name="select-all" id="select-all" />Select All</th>
             <th>Name</th>
             <th>Email</th>
             <th>Comment</th>
@@ -108,11 +96,11 @@ if(isset($_GET['del']))
         try {
 
             $stmt = $db->query('SELECT cid, pid, name, email, comment, post_date, published FROM blog_comments WHERE published = 0 ORDER BY post_date DESC');
-            $i = 1;
+
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
-                echo '<td><input type="checkbox" name = "checkbox-'.$i.'" id = "checkbox-'.$i.'" value = "' . $row['cid'] . '">';
+//                echo '<td><input type="checkbox" name = "comment[]" value = "' . $row['cid'] . '">';
                 echo '<td>'.$row['name'].'</td>';
                 echo '<td>'.$row['email'].'</td>';
                 echo '<td>'.$row['comment'].'</td>';
@@ -126,7 +114,6 @@ if(isset($_GET['del']))
 
                 <?php
                 echo '</tr>';
-                $i++;
             }
 
         } catch(PDOException $e) {

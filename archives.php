@@ -45,7 +45,8 @@ require_once('includes/config.php');
             try {
                 //collect month and year data
                 $month = $_GET['month'];
-                $year = $_GET['year'];
+                $year = rtrim($_GET['year'], '.html');
+
                 //set from and to dates
                 $from = date('Y-m-01 00:00:00', strtotime("$year-$month"));
                 $to = date('Y-m-31 23:59:59', strtotime("$year-$month"));
@@ -58,7 +59,7 @@ require_once('includes/config.php');
                 //pass number of records to
                 $pages->set_total($stmt->rowCount());
                 $stmt = $db->prepare('SELECT p.postID, m.username, p.postTitle,
-                        p.postDesc, p.postDate FROM blog_posts_seo p,
+                        p.postDesc, p.postDate, p.postSlug FROM blog_posts_seo p,
                         blog_members m WHERE p.poster = m.memberID AND postDate
                         >= :from AND postDate <= :to  AND published = 1 ORDER BY postID DESC ' .
                     $pages->get_limit());
@@ -74,12 +75,12 @@ require_once('includes/config.php');
                     $catRow = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     $links = array();
                     foreach ($catRow as $cat) {
-                        $links[] = "<a href='c-" . $cat['catSlug'] . "'>" . $cat['catTitle'] . "</a>";
+                        $links[] = "<a href='c-" . $cat['catSlug'] . ".html'>" . $cat['catTitle'] . "</a>";
                     }
                     echo implode(", ", $links);
                     echo '</p>';
                     echo '<p>' . $row['postDesc'] . '</p>';
-                    echo '<p><a href="viewpost.php?id=' . $row['postID'] . '">Read More</a></p>';
+                    echo '<p><a href="' . $row["postSlug"] . '.html">Read More</a></p>';
                 }
                 echo $pages->page_links("a-$month-$year&");
             } catch (PDOException $e) {
@@ -92,7 +93,7 @@ require_once('includes/config.php');
             while($row = $stmt->fetch()){
                 $monthName = date("F", mktime(0, 0, 0, $row['Month'], 10));
                 $slug = 'a-'.$row['Month'].'-'.$row['Year'];
-                echo "<li><a href='$slug'>$monthName " . $row['Year'] . '    (' . $row['Count'] . " posts)</a></li>";
+                echo '<li><a href="' . $slug . '.html">' . $monthName . ' '  . $row['Year'] . ' (' . $row["Count"] . ' posts)</a></li>';
             }
             echo('</ul>');
         }

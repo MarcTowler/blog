@@ -125,7 +125,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 		try {
 
-			$stmt = $db->prepare('SELECT postID, postTitle, postDesc, postCont, postDate, published FROM blog_posts_seo WHERE postID = :postID') ;
+			$stmt = $db->prepare('SELECT postID, postTitle, postSlug, postDesc, postCont, postDate, published FROM blog_posts_seo WHERE postID = :postID') ;
 			$stmt->execute(array(':postID' => $_GET['id']));
 			$row = $stmt->fetch(); 
 
@@ -136,10 +136,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 	?>
 
 	<form action='' method='post'>
-		<input type='hidden' name='postID' value='<?php echo $row['postID'];?>'>
+		<input type='hidden' name='postID' value='<?php echo $row['postID'];?>' />
 
 		<p><label>Title</label><br />
-		<input type='text' name='postTitle' value='<?php echo $row['postTitle'];?>'></p>
+		<input type='text' name='postTitle' value='<?php echo $row['postTitle'];?>' size='50'></p><br />
+
+		<p><label>Slug</label><br />
+		<?php echo $_SERVER['SERVER_NAME'] . '/'; ?>
+		<input type='text' name='postSlug' value='<?php echo $row['postSlug']; ?>' size='50'></p>
 
 		<p><label>Description</label><br />
 		<textarea name='postDesc' cols='60' rows='10'><?php echo $row['postDesc'];?></textarea></p>

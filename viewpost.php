@@ -6,6 +6,9 @@ function section_status()
     return true;
 }
 
+$has_comments = false;
+$str = ".html";
+$id = $_GET['id'];
 
 //lets see if a comment has been submitted?
 if(isset($_POST['submit']))
@@ -43,14 +46,21 @@ if(isset($_POST['submit']))
 
 }
 
-
+if(isset($id))
+{
+    $id = rtrim($id, $str);
+}
 if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
 {
     $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 0');
 } else {
-    $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+    if(is_numeric($_GET['id'])) {
+        $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+    } else {
+        $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postSlug = :postID AND published = 1');
+    }
 }
-$stmt->execute(array(':postID' => $_GET['id']));
+$stmt->execute(array(':postID' => $id));
 $row = $stmt->fetch();
 
 if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {

@@ -107,7 +107,7 @@ if(isset($_GET['pub'])) {
 //determine the total number of records
             $pages->set_total($stmt->rowCount());
 
-            $stmt = $db->query('SELECT postID, postTitle, postDate, published, views FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
+            $stmt = $db->query('SELECT postID, postTitle, postSlug, postDate, published, views FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
@@ -124,7 +124,7 @@ if(isset($_GET['pub'])) {
                     if($row['published'])
                     {
                         ?>
-                        <a href="javascript:unpub('<?php echo$row['postID'];?>','<?php echo $row['postTitle'];?>')">Unpublish</a>
+                        <a href="javascript:unpub('<?php echo $row['postID'];?>','<?php echo $row['postTitle'];?>')">Unpublish</a>
                     <?php
                     } else {
                         ?>
@@ -142,7 +142,7 @@ if(isset($_GET['pub'])) {
                     <?php
                     } else {
                     ?>
-                    <a href="../viewpost.php?id=<?php echo $row['postID'];?>" target="_blank">View Post</a>
+                    <a href="../<?php echo $row['postSlug'] . '.html';?>" target="_blank">View Post</a>
                     <?php
                     }?>
                 </td>
