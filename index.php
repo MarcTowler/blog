@@ -1,6 +1,5 @@
 <?php
 require_once('includes/config.php');
-WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +14,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
             <?php echo SITENAME; ?>
         </title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <meta name="description" content="Website Development and Design blog written by Marc Towler, includes game
-                    reviews and book reviews" />
+        <meta name="description" content="<?php echo DESCRIPTION ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -105,7 +103,7 @@ WhereFrom('https://marctowler.co.uk/index.php', 'Main Index');
             _paq.push(['trackPageView']);
             _paq.push(['enableLinkTracking']);
             (function() {
-                var u=(("https:" == document.location.protocol) ? "https" : "http") + "://marctowler.co.uk/piwik/";
+                var u="https://marctowler.co.uk/piwik/";
                 _paq.push(['setTrackerUrl', u+'piwik.php']);
                 _paq.push(['setSiteId', 1]);
                 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';

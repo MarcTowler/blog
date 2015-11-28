@@ -1,6 +1,5 @@
 <?php
 require_once('includes/config.php');
-WhereFrom('https://marctowler.co.uk/about.php', 'About Me');
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +14,7 @@ WhereFrom('https://marctowler.co.uk/about.php', 'About Me');
         <?php echo SITENAME; ?> - About Me
     </title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="description" content="Website Development and Design blog written by Marc Towler, includes game
-                    reviews and book reviews" />
+    <meta name="description" content="<?php echo DESCRIPTION ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->

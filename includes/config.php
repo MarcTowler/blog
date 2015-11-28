@@ -3,14 +3,17 @@ ob_start();
 session_start();
 
 //database credentials
-define('DBHOST','localhost');
+define('DBHOST','');
 define('DBUSER','');
 define('DBPASS','');
 define('DBNAME','');
+define('PORT'  ,'3306');
 
-define('SITENAME', 'Code Something');
+define('SITENAME',    'Sample Name');
+define('URL',         'https://www.example.com/'); //leave trailing /
+define('DESCRIPTION', 'YOUR DESCRIPTION');
 
-$db = new PDO("mysql:host=".DBHOST.";port=8889;dbname=".DBNAME, DBUSER, DBPASS);
+$db = new PDO("mysql:host=".DBHOST.";port=".PORT.";dbname=".DBNAME, DBUSER, DBPASS);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //set timezone
 date_default_timezone_set('Europe/London');

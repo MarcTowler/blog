@@ -6,7 +6,7 @@ $count = $com->fetchColumn(0);
     <li><a href="index.php">Home</a> |</li>
     <li><a href="archives.php">Archives</a> |</li>
     <li><a href="catpost.php">Categories</a> |</li>
-    <li><a href="https://www.marctowler.co.uk/rss.php">RSS Feed</a> |</li>
+    <li><a href="rss.php">RSS Feed</a> |</li>
     <?php
     if(isset($_SESSION['uid']) && $_SESSION['uid'] > 0)
     {
