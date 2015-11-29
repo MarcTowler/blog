@@ -14,7 +14,7 @@ $rssfeed .= "\t<description>" . DESCRIPTION . "</description>\n";
 $rssfeed .= "\t<language>en-gb</language>\n";
 $rssfeed .= "\t<copyright>Copyright (C) 2012-2015 " . URL . "</copyright>\n";
 
-$stmt = $db->query("SELECT * FROM blog_posts_seo WHERE published=1 ORDER BY postDate DESC");
+$stmt = $db->query("SELECT * FROM blog_posts_seo WHERE published=1 AND postDate <= NOW() ORDER BY postDate DESC");
 
 
 while($row = $stmt->fetch())
