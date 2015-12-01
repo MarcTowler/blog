@@ -65,7 +65,7 @@ $row = $stmt->fetch();
 
 if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
     $views = $row['views'] + 1;
-    if(is_numeric($_GET['id'])
+    if(is_numeric($_GET['id']))
     {
         $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID'));
     } else {
