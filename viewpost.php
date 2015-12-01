@@ -58,16 +58,21 @@ if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
         $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
     } else {
         $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postSlug = :postID AND published = 1');
-
-        if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
-            $views = $row['views'] + 1;
-            $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postSlug = :postID');
-            $vstmt->execute(array(':viewnum' => $views, ':postID' => $id));
-        }
     }
 }
 $stmt->execute(array(':postID' => $id));
 $row = $stmt->fetch();
+
+if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
+    $views = $row['views'] + 1;
+    if(is_numeric($_GET['id'])
+    {
+        $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID'));
+    } else {
+        $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postSlug = :postID');
+    }
+    $vstmt->execute(array(':viewnum' => $views, ':postID' => $id));
+}
 
 //if post does not exists redirect user.
 if($row['postID'] == ''){
