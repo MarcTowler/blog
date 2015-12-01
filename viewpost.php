@@ -65,7 +65,7 @@ $row = $stmt->fetch();
 
 if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
     $views = $row['views'] + 1;
-    $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postID = :postID');
+    $vstmt = $db->prepare('UPDATE blog_posts_seo set views = :viewnum WHERE postSlug = :postID');
     $vstmt->execute(array(':viewnum' => $views, ':postID' => $_GET['id']));
 }
 
@@ -99,6 +99,9 @@ $cstmt->execute(array(':postid' => $row['postID']));
         <link rel="stylesheet" href="css/main.css">
         <link rel="alternate" href="rss.php" title="My RSS feed" type="application/rss+xml" />
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
 
