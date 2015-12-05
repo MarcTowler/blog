@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'On');
 require('includes/config.php');
 
 function section_status()
@@ -10,22 +11,52 @@ $has_comments = false;
 $str = ".html";
 $id = $_GET['id'];
 
+if(isset($id))
+{
+    $id = str_replace($str, '', $id);
+}
+
+if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
+{
+    $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 0');
+} else {
+    if(is_numeric($_GET['id'])) {
+        $stmt = $db->prepare('SELECT p.postID, m.memberID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
+    } else {
+        $stmt = $db->prepare('SELECT p.postID, m.memberID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postSlug = :postID AND published = 1');
+    }
+}
+$stmt->execute(array(':postID' => $id));
+$row = $stmt->fetch();
+
 //lets see if a comment has been submitted?
 if(isset($_POST['submit']))
 {
-    $ins = $db->prepare('INSERT INTO blog_comments (pid, name, email, post_date, comment, published) VALUES(:pid, :name, :email, :post_date, :comment, :pub)');
+
+    $ins = $db->prepare('INSERT INTO blog_comments (pid, name, email, post_date, comment, published, author) VALUES(:pid, :name, :email, :post_date, :comment, :pub, :author)');
 
     if($user->is_logged_in()) {
         $auth = $user->get_user();
 
-        if ($auth['memberID'] == "1") {
+        if ($auth['memberID'] == $row['memberID']) {
+
             $ins->execute(array(
                 ':pid' => $_POST['comment_post_ID'],
                 ':name' => $_POST['comment_author'],
                 ':email' => $_POST['email'],
                 ':post_date' => date('Y-m-d H:i:s'),
                 ':comment' => $_POST['comment'],
-                ':pub' => 1));
+                ':pub' => 1,
+                ':author' => $_POST['author']));
+        } else {
+            $ins->execute(array(
+                ':pid' => $_POST['comment_post_ID'],
+                ':name' => $_POST['comment_author'],
+                ':email' => $_POST['email'],
+                ':post_date' => date('Y-m-d H:i:s'),
+                ':comment' => $_POST['comment'],
+                ':pub' => 0,
+                ':author' => $_POST['author']));
         }
     } else {
         $ins->execute(array(
@@ -34,7 +65,8 @@ if(isset($_POST['submit']))
             ':email' => $_POST['email'],
             ':post_date' => date('Y-m-d H:i:s'),
             ':comment' => $_POST['comment'],
-            ':pub' => 0));
+            ':pub' => 0,
+            ':author' => $_POST['author']));
     }
 
     $added = $db->lastInsertId();
@@ -45,23 +77,6 @@ if(isset($_POST['submit']))
     }
 
 }
-
-if(isset($id))
-{
-    $id = rtrim($id, $str);
-}
-if(isset($_GET['p']) && ($_GET['p'] == true) && $user->is_logged_in())
-{
-    $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 0');
-} else {
-    if(is_numeric($_GET['id'])) {
-        $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postID = :postID AND published = 1');
-    } else {
-        $stmt = $db->prepare('SELECT p.postID, m.name, p.postTitle, p.postDesc, p.postCont, p.postDate, views FROM blog_posts_seo p, blog_members m WHERE m.memberID = p.poster AND postSlug = :postID AND published = 1');
-    }
-}
-$stmt->execute(array(':postID' => $id));
-$row = $stmt->fetch();
 
 if(!isset($_SESSION['uid']) || $_SESSION['uid'] <= 0) {
     $views = $row['views'] + 1;
@@ -81,7 +96,7 @@ if($row['postID'] == ''){
 }
 
 
-$cstmt = $db->prepare('SELECT cid, name, email, comment, post_date FROM blog_comments WHERE pid = :postid AND published = 1');
+$cstmt = $db->prepare('SELECT cid, name, email, comment, post_date, author FROM blog_comments WHERE pid = :postid AND published = 1');
 $cstmt->execute(array(':postid' => $row['postID']));
 
 ?>
@@ -181,6 +196,9 @@ $cstmt->execute(array(':postid' => $row['postID']));
 
                                         <address class="vcard author">
                                             By <a class="url fn" href="#"><?php echo($comment['name']); ?></a>
+                                            <?php if($comment['author']) {?>
+                                            <i>[Author]</i>
+                                            <?php } ?>
                                         </address>
                                     </footer>
 
@@ -203,16 +221,21 @@ $cstmt->execute(array(':postid' => $row['postID']));
                                 $auth = $user->get_user();
                             ?>
                             <label for="comment_author" class="required">Your name</label>
-                            <input type="text" name="comment_author" id="comment_author" value="<?php echo $auth['name']; ?>" tabindex="1" required="required">
+                            <input type="text" name="comment_author" id="comment_author" value="<?php echo $auth['name']; ?>" tabindex="1" required="required" />
                             <br />
                             <label for="email" class="required">Your email</label>
-                            <input type="email" name="email" id="email" value="<?php echo $auth['email']; ?>" tabindex="2" required="required">
+                            <input type="email" name="email" id="email" value="<?php echo $auth['email']; ?>" tabindex="2" required="required" />
+                            <?php if($auth['memberID'] == $row['memberID']) {?>
+                            <input type="hidden" name="author" id="author" value="1" />
+                            <?php } else { ?>
+                            <input type="hidden" name="author" id="author" value="0" /> <?php } ?>
                             <?php } else { ?>
                             <label for="comment_author" class="required">Your name</label>
-                            <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required">
+                            <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required" />
                             <br />
                             <label for="email" class="required">Your email</label>
-                            <input type="email" name="email" id="email" value="" tabindex="2" required="required">
+                            <input type="email" name="email" id="email" value="" tabindex="2" required="required" />
+                            <input type="hidden" name="author" id="author" value="0" />
                             <?php }?>
                             <br />
                             <label for="comment" class="required">Your message</label>
