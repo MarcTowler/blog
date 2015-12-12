@@ -10,17 +10,15 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
   <title>Admin - Edit Post</title>
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
-	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
-	<script>
-		tinymce.init({
-				  selector: "textarea",
-					  plugins: [
-						  "advlist autolink lists link image charmap print preview anchor",
-						  "searchreplace visualblocks code fullscreen",
-						  "insertdatetime media table contextmenu paste"
-					  ],
-					  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-			  });
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../includes/markitup/sets/markdown/style.css" />
+	<link rel="stylesheet" href="../includes/markitup/skins/simple/style.css" />
+	<script src="../includes/markitup/jquery.markitup.js"></script>
+	<script src="../includes/markitup/sets/markdown/set.js"></script>
+	<script type="text/javascript" >
+		$(document).ready(function() {
+			$("textarea").markItUp(mySettings);
+		});
 	</script>
 </head>
 <body>

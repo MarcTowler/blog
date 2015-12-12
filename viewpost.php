@@ -1,12 +1,13 @@
 <?php
 require('includes/config.php');
-
+require('classes/Parsedown.php');
 function section_status()
 {
     return true;
 }
 
 $has_comments = false;
+$parsedown = new Parsedown();
 $str = ".html";
 $id = $_GET['id'];
 
@@ -120,8 +121,6 @@ $cstmt->execute(array(':postid' => $row['postID']));
         <link rel="alternate" href="rss.php" title="My RSS feed" type="application/rss+xml" />
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/default.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
 
@@ -156,7 +155,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                 echo implode(", ", $links);
 
                 echo '&nbsp;<img src="img/view.jpg" height="20" width="20" /> ' . $row["views"] . '</p>';
-                echo '<p>'.$row['postCont'].'</p>';
+                echo '<p>'.$parsedown->text($row['postCont']).'</p>';
                 echo '</div>';
                 ?>
                 <ul style="list-style: none;">

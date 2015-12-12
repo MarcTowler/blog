@@ -1,4 +1,5 @@
 <?php //include config
+ini_set('display_errors', 'On');
 require_once('../includes/config.php');
 
 //if not logged in redirect to login page
@@ -11,18 +12,16 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
   <title>Admin - Add Post</title>
   <link rel="stylesheet" href="../css/normalize.css">
   <link rel="stylesheet" href="../css/main.css">
-  <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
-	<script>
-		tinymce.init({
-			selector: "textarea",
-			plugins: [
-				"advlist autolink lists link image charmap print preview anchor",
-				"searchreplace visualblocks code fullscreen",
-				"insertdatetime media table contextmenu paste"
-			],
-			toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-		});
-	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../includes/markitup/sets/markdown/style.css" />
+    <link rel="stylesheet" href="../includes/markitup/skins/simple/style.css" />
+    <script src="../includes/markitup/jquery.markitup.js"></script>
+    <script src="../includes/markitup/sets/markdown/set.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(function() {
+            $("textarea").markItUp(mySettings);
+        });
+    </script>
 </head>
 <body>
 
@@ -117,7 +116,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<textarea name='postDesc' cols='60' rows='10'><?php if(isset($error)){ echo $_POST['postDesc'];}?></textarea></p>
 
 		<p><label>Content</label><br />
-		<textarea name='postCont' cols='60' rows='10'><?php if(isset($error)){ echo $_POST['postCont'];}?></textarea></p>
+		<textarea name='postCont'  cols='60' rows='10' data-provide='markdown'><?php if(isset($error)){ echo $_POST['postCont'];}?></textarea></p>
 
 		<p><label>Publish Time</label></p>
 		<input type="text" name="postDate" value="<?php echo(date("Y-m-d H:i:s")); ?>" /></p>
@@ -130,7 +129,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<fieldset>
 			<legend>Categories</legend>
 
-			<?php	
+			<?php
             $checked = "";
 			$stmt2 = $db->query('SELECT catID, catTitle FROM blog_cats ORDER BY catTitle');
 			while($row2 = $stmt2->fetch()){
@@ -152,6 +151,6 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 		<p><input type='submit' name='submit' value='Submit'></p>
 
 	</form>
-</div>
+</ div>
 </body>
 </html>
