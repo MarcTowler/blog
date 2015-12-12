@@ -3,6 +3,9 @@
 body{font-family:Montserrat;}
 
 img {
+    width: auto;
+    height: auto;
+    display: block;
     max-width: 719px;
     max-height: 332px;
 }
