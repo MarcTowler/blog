@@ -15,8 +15,9 @@ img {
     padding-top: 10px;
 }
 ul {
-    list-style-type: none;
+    list-style-type: circle;
 }
+
 .pagination a {
     border: 1px solid #D5D5D5;
     color: #666666;
