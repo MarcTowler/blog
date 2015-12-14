@@ -3,15 +3,16 @@ ob_start();
 session_start();
 
 //database credentials
-define('DBHOST','');
-define('DBUSER','');
-define('DBPASS','');
-define('DBNAME','');
+define('DBHOST','localhost');
+define('DBUSER','root');
+define('DBPASS','06061990');
+define('DBNAME','c1blog');
 define('PORT'  ,'3306');
 
 define('SITENAME',    'Sample Name');
-define('URL',         'https://www.example.com/'); //leave trailing /
-define('DESCRIPTION', 'YOUR DESCRIPTION');
+define('URL',         'http://localhost/'); //leave trailing /
+define('DESCRIPTION', 'Website Development and Design blog written by Marc Towler, includes game
+                    reviews and book reviews');
 
 $db = new PDO("mysql:host=".DBHOST.";port=".PORT.";dbname=".DBNAME, DBUSER, DBPASS);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

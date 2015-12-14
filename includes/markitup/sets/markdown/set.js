@@ -11,7 +11,7 @@
 // Feel free to add more tags
 // -------------------------------------------------------------------
 mySettings = {
-	previewParserPath:	'',
+	previewParserPath:	'../includes/markitup/sets/markdown/Preview.php',
 	onShiftEnter:		{keepDefault:false, openWith:'\n\n'},
 	markupSet: [
 		{name:'First Level Heading', key:'1', placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },
@@ -34,8 +34,8 @@ mySettings = {
 		{separator:'---------------'},	
 		{name:'Quotes', openWith:'> '},
 		{name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)'},
-		//{separator:'---------------'},
-		//{name:'Preview', call:'preview', className:"preview"}
+		{separator:'---------------'},
+		{name:'Preview', call:'preview', className:"preview"}
 	]
 }
 
