@@ -60,6 +60,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
             $catview;
 
+            $views = $db->query("Select SUM(views) FROM blog_posts_seo");
+            $views->execute();
+
+            $pview = $views->fetchColumn();
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -78,6 +82,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                 </td>
                 <td>
                     <?php echo $unpublished; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total views of all blog posts
+                </td>
+                <td>
+                    <?php echo $pview; ?>
                 </td>
             </tr>
             <tr>
