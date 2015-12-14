@@ -8,7 +8,7 @@
 // http://en.wikipedia.org/wiki/Markdown
 // http://daringfireball.net/projects/markdown/
 // -------------------------------------------------------------------
-// Feel free to add more tags
+// Feel free to add more tags!
 // -------------------------------------------------------------------
 mySettings = {
 	previewParserPath:	'../includes/markitup/sets/markdown/Preview.php',
