@@ -3,6 +3,9 @@
 header("Content-Type: application/rss+xml; charset=UTF-8");
 
 require_once('includes/config.php');
+require_once('classes/Parsedown.php');
+
+$p = new Parsedown();
 
 $rssfeed = "<?xml version='1.0' encoding='UTF-8'?>\n";
 $rssfeed .= "<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>\n\n";
@@ -23,7 +26,7 @@ while($row = $stmt->fetch())
     $rssfeed .= "\t\t<title>" . $row["postTitle"] . "</title>\n";
     $rssfeed .= "\t\t<link>" . URL . $row['postSlug'] . ".html</link>\n";
     $rssfeed .= "\t\t<pubDate>" .date('D, d M Y H:i:s', strtotime($row['postDate'])) . " GMT</pubDate>\n";
-    $rssfeed .= "\t\t<description><![CDATA[" .  html_entity_decode($row['postDesc']) . "]]></description>\n";
+    $rssfeed .= "\t\t<description><![CDATA[" .  $p->text(html_entity_decode($row['postDesc'])) . "]]></description>\n";
     $rssfeed .= "\t\t<guid>" . URL . $row['postSlug'] . ".html</guid>\n";
     $rssfeed .= "\t</item>\n";
 }
