@@ -91,11 +91,14 @@ if(isset($_GET['del']))
             <th>Comment</th>
             <th>Date</th>
             <th>Action</th>
+            <th>Post</th>
         </tr>
         <?php
         try {
 
-            $stmt = $db->query('SELECT cid, pid, name, email, comment, post_date, published FROM blog_comments WHERE published = 0 ORDER BY post_date DESC');
+            $stmt = $db->query('SELECT c.cid, c.name, c.email, c.comment, c.post_date, c.published, p.postTitle,
+                                p.postSlug FROM blog_comments c INNER JOIN blog_posts_seo p ON c.pid = p.postID WHERE
+                                c.published = 0 ORDER BY post_date DESC');
 
             while($row = $stmt->fetch()){
 
@@ -113,6 +116,7 @@ if(isset($_GET['del']))
                 </td>
 
                 <?php
+                echo '<td><a href="../'.$row['postSlug'].'.html">'.$row['postTitle'].'</a></td>';
                 echo '</tr>';
             }
 
