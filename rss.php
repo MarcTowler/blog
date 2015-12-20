@@ -26,7 +26,7 @@ while($row = $stmt->fetch())
     $rssfeed .= "\t\t<title>" . $row["postTitle"] . "</title>\n";
     $rssfeed .= "\t\t<link>" . URL . $row['postSlug'] . ".html</link>\n";
     $rssfeed .= "\t\t<pubDate>" .date('D, d M Y H:i:s', strtotime($row['postDate'])) . " GMT</pubDate>\n";
-    $rssfeed .= "\t\t<description><![CDATA[" .  $p->text(html_entity_decode($row['postDesc'])) . "]]></description>\n";
+    $rssfeed .= "\t\t<description><![CDATA[" .  $p->text(html_entity_decode($row['postCont'])) . "]]></description>\n";
     $rssfeed .= "\t\t<guid>" . URL . $row['postSlug'] . ".html</guid>\n";
     $rssfeed .= "\t</item>\n";
 }
