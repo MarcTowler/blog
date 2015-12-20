@@ -22,6 +22,20 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $("textarea").markItUp(mySettings);
         });
     </script>
+	<script>
+		function convertToSlug(Text) {
+			return Text
+				.toLowerCase()
+				.replace(/[^\w ]+/g,'')
+				.replace(/ +/g,'-');
+		}
+		function sync()
+		{
+			var n1 = document.getElementById('n1');
+			var n2 = document.getElementById('n2');
+			n2.value = convertToSlug(n1.value);
+		}
+	</script>
 </head>
 <body>
 
@@ -110,7 +124,12 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 	<form action='' method='post'>
 
 		<p><label>Title</label><br />
-		<input type='text' name='postTitle' value='<?php if(isset($error)){ echo $_POST['postTitle'];}?>'></p>
+		<input type='text' name='postTitle' id="n1" value='<?php if(isset($error)){ echo $_POST['postTitle'];}?>' onkeyup="sync()"></p>
+
+		<p><label>Slug</label><br />
+			<?php echo $_SERVER['SERVER_NAME'] . '/'; ?>
+		<input type='text' name='postSlug' id="n2" value='' size='50'></p>
+
 
 		<p><label>Description</label><br />
 		<textarea name='postDesc' cols='60' rows='10'><?php if(isset($error)){ echo $_POST['postDesc'];}?></textarea></p>
