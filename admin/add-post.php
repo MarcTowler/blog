@@ -1,5 +1,5 @@
 <?php //include config
-ini_set('display_errors', 'On');
+
 require_once('../includes/config.php');
 
 //if not logged in redirect to login page

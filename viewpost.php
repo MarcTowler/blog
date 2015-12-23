@@ -111,7 +111,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
             <?php echo $row['postTitle'] . " : " . SITENAME;?>
         </title>
         <meta name="author" content="<?php echo $row['name']; ?>" />
-        <meta name="description" content="<?php echo strip_tags($row['postDesc']); ?>" />
+        <meta name="description" content="<?php echo DESCRIPTION ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
