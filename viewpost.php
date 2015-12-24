@@ -153,7 +153,7 @@ $cstmt->execute(array(':postid' => $row['postID']));
                 }
                 echo implode(", ", $links);
 
-                echo '&nbsp;<img src="img/view.jpg" height="20" width="20" /> ' . $row["views"] . '</p>';
+                echo '&nbsp;<img src="img/view.jpg" id="view" /> ' . $row["views"] . '</p>';
                 echo '<p>'.$parsedown->text($row['postCont']).'</p>';
                 echo '</div>';
                 ?>

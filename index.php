@@ -77,7 +77,7 @@ $parsedown = new Parsedown();
                         }
                         echo implode(", ", $links);
 
-                        echo '&nbsp;<img src="img/view.jpg" width="20" height="20" /> ' . $row["views"] . '</p>';
+                        echo '&nbsp;<img id="view" src="img/view.jpg" /> ' . $row["views"] . '</p>';
                         echo '<p>'.$parsedown->text($row['postDesc']).'</p>';
                         echo '<p><a href="'.$row['postSlug'].'">Read More</a></p>';
                         echo '</div>';
@@ -95,8 +95,6 @@ $parsedown = new Parsedown();
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
 
         <!-- Piwik -->
         <script type="text/javascript">
