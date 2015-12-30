@@ -58,7 +58,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $top = $db->query("SELECT postTitle, views FROM blog_posts_seo order by views DESC limit 5");
             $top->execute();
 
-            $pendingq = $db->query("SELECT count(*) FROM blog_posts_seo WHERE published = 1 AND postDate < now()");
+            $pendingq = $db->query("SELECT count(*) FROM blog_posts_seo WHERE published = 1 AND postDate > now()");
             $pendingq->execute();
             $pending = $pendingq->fetchColumn();
 
