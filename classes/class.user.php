@@ -1,7 +1,8 @@
 <?php
 include('class.password.php');
+
 class User extends Password{
-    private $db;
+    private $_db;
     protected $uid;
 
     function __construct($db){
