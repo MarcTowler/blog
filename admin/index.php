@@ -58,6 +58,10 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             $top = $db->query("SELECT postTitle, views FROM blog_posts_seo order by views DESC limit 5");
             $top->execute();
 
+            $pendingq = $db->query("SELECT count(*) FROM blog_posts_seo WHERE published = 1 AND post_date < now()");
+            $pendingq->execute();
+            $pending = $pendingq->fetchColumn();
+
             $catview;
 
             $views = $db->query("Select SUM(views) FROM blog_posts_seo");
@@ -74,6 +78,14 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                 </td>
                 <td>
                     <?php echo $number_of_rows; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of published blog posts pending to go live
+                </td>
+                <td>
+                    <?php echo $pending; ?>
                 </td>
             </tr>
             <tr>
