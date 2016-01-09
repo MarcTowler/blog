@@ -4,6 +4,7 @@ $count = $com->fetchColumn(0);
 ?>
 <ul>
     <li><a href="index.php">Home</a> |</li>
+    <li><a href="about.php">About</a> |</li>
     <li><a href="archives.php">Archives</a> |</li>
     <li><a href="catpost.php">Categories</a> |</li>
     <li><a href="rss.php">RSS Feed</a> |</li>
