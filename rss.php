@@ -17,8 +17,16 @@ $rssfeed .= "\t<description>" . DESCRIPTION . "</description>\n";
 $rssfeed .= "\t<language>en-gb</language>\n";
 $rssfeed .= "\t<copyright>Copyright (C) 2012-2015 " . URL . "</copyright>\n";
 
-$stmt = $db->query("SELECT * FROM blog_posts_seo WHERE published=1 AND postDate <= NOW() ORDER BY postDate DESC");
+if(isset($_GET['id']))
+{
+    $stm = $db->prepare('SELECT catID FROM blog_cats WHERE catSlug = :catSlug');
+    $stm->execute(array(':catSlug' => $_GET['id']));
+    $row = $stm->fetch();
 
+    $stmt = $db->query("SELECT * FROM blog_posts_seo, blog_post_cats WHERE blog_posts_seo.postID = blog_post_cats.postID AND blog_post_cats.catID = " . $row['catID'] . " AND published=1 AND postDate <= NOW() ORDER BY postDate DESC");
+} else {
+    $stmt = $db->query("SELECT * FROM blog_posts_seo WHERE published=1 AND postDate <= NOW() ORDER BY postDate DESC");
+}
 
 while($row = $stmt->fetch())
 {
