@@ -4,93 +4,68 @@ require_once('../includes/config.php');
 
 //if not logged in redirect to login page
 if(!$user->is_logged_in()){ header('Location: login.php'); }
-?>
-?><!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>File Manager</title>
-    <link rel="stylesheet" href="../style/normalize.css">
-    <link rel="stylesheet" href="../style/main.css">
-    <link rel="stylesheet" type="text/css" href="fm/styles/reset.css" />
-    <link rel="stylesheet" type="text/css" href="fm/scripts/jquery.filetree/jqueryFileTree.css" />
-    <link rel="stylesheet" type="text/css" href="fm/scripts/jquery.contextmenu/jquery.contextMenu-1.01.css" />
-    <link rel="stylesheet" type="text/css" href="fm/scripts/custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" />
-    <style type="text/css">
-        #loading-wrap {
-            position:fixed;
-            height:100%;
-            width:100%;
-            overflow:hidden;
-            top:0;
-            left:0;
-            display:block;
-            background: white url(fm/images/wait30trans.gif) no-repeat center center;
-            z-index:999;
+
+if(isset($_POST['submit']))
+{
+    $count = count($_FILES['upload']['name']);
+
+    if($count > 0)
+    {
+        for($i=0; $i < $count; $i++)
+        {
+            $tmp = $_FILES['upload']['tmp_name'][$i];
+
+            if($tmp != "")
+            {
+                $shortname = $_FILES['upload']['name'][$i];
+
+                $path = "../img/" . $_FILES['upload']['name'][$i];
+
+                if(move_uploaded_file($tmp, $path))
+                {
+                    $files[] = $shortname;
+                }
+            }
         }
-    </style>
+    }
+}
 
-    <!-- CSS dynamically added using 'config.options.theme' defined in config file -->
-</head>
+?>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Admin - Add Category</title>
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+    </head>
 <body>
-<div id="wrapper"><?php include_once("menu.php"); ?>
-    <h1>Page Unavailable</h1></div><!--
-<div id="loading-wrap"><!-- loading wrapper / removed when loaded --</div>
-<div>
-    <form id="uploader" method="post">
-        <h1></h1>
-        <div id="uploadresponse"></div>
-        <button id="level-up" name="level-up" type="button" value="LevelUp">&nbsp;</button>
-        <button id="home" name="home" type="button" value="Home">&nbsp;</button>
-        <input id="mode" name="mode" type="hidden" value="add" />
-        <input id="currentpath" name="currentpath" type="hidden" />
-        <div id="file-input-container">
-            <div id="alt-fileinput">
-                <input id="filepath" name="filepath" type="text" /><button id="browse" name="browse" type="button" value="Browse"></button>
-            </div>
-            <input	id="newfile" name="newfile" type="file" />
-        </div>
-        <button id="upload" name="upload" type="submit" value="Upload" class="em"></button>
-        <button id="newfolder" name="newfolder" type="button" value="New Folder" class="em"></button>
-        <button id="grid" class="ON" type="button">&nbsp;</button>
-        <button id="list" type="button">&nbsp;</button>
+
+<div id="wrapper">
+
+<?php include('menu.php');?>
+
+    <h2>Add new image:</h2>
+
+    <form action="" enctype="multipart/form-data" method="post">
+        Add Images:
+        <input name="upload[]" type="file" multiple="multiple" />
+        <br />
+        <input type="submit" name="submit" value="Submit">
     </form>
-    <div id="splitter">
-        <div id="filetree"></div>
-        <div id="fileinfo">
-            <h1></h1>
-        </div>
-    </div>
-    <div id="footer">
-        <form name="search" id="search" method="get">
-            <div>
-                <input type="text" value="" name="q" id="q" />
-                <a id="reset" href="#" class="q-reset"></a>
-                <span class="q-inactive"></span>
-            </div>
-        </form>
-        <a href="" id="link-to-project"></a>
-        <div id="folder-info"></div>
-    </div>
 
-    <ul id="itemOptions" class="contextMenu">
-        <li class="select"><a href="#select"></a></li>
-        <li class="download"><a href="#download"></a></li>
-        <li class="rename"><a href="#rename"></a></li>
-        <li class="move"><a href="#move"></a></li>
-        <li class="replace"><a href="#replace"></a></li>
-        <li class="delete separator"><a href="#delete"></a></li>
-    </ul>
+<?php
+if ($handle = opendir('../img')) {
 
-    <script type="text/javascript" src="fm/scripts/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery-browser.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.form-3.24.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.splitter/jquery.splitter-1.5.1.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.filetree/jqueryFileTree.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.contextmenu/jquery.contextMenu-1.01.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.impromptu-3.2.min.js"></script>
-    <script type="text/javascript" src="fm/scripts/jquery.tablesorter-2.7.2.min.js"></script>
-    <script type="text/javascript" src="fm/scripts/filemanager.min.js"></script>
-</div>-->
-</body>
-</html>
+    while (false !== ($entry = readdir($handle))) {
+
+        if ($entry != "." && $entry != ".." && $entry != ".gitignore") {
+
+            echo "<img src='../img/$entry' /><br />";
+            echo "<input type='text' value='" . URL . 'img/' . "$entry' /><br
+            />";
+        }
+    }
+
+    closedir($handle);
+}
