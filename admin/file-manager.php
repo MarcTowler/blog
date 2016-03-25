@@ -24,6 +24,10 @@ if(isset($_POST['submit']))
                 if(move_uploaded_file($tmp, $path))
                 {
                     $files[] = $shortname;
+                } else {
+                    //Something went wrong!!
+                    $error = error_get_last();
+                    echo("<span color='red'>Sorry, something went wrong <!--" . $error['message'] . "--></span>");
                 }
             }
         }
@@ -35,7 +39,7 @@ if(isset($_POST['submit']))
     <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Admin - Add Category</title>
+        <title>Admin - File Manager</title>
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/main.css">
     </head>
