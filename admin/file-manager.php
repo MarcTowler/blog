@@ -24,6 +24,7 @@ if(isset($_POST['submit']))
                 if(move_uploaded_file($tmp, $path))
                 {
                     $files[] = $shortname;
+                    echo ("<span color='green'>" . $_FILES['upload']['name'] . " was successfully uploaded</span>");
                 } else {
                     //Something went wrong!!
                     $error = error_get_last();
