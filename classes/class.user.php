@@ -10,11 +10,13 @@ class User extends Password{
 
         $this->_db = $db;
     }
+
     public function is_logged_in(){
         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
             return true;
         }
     }
+
     private function get_user_hash($username){
         try {
             $stmt = $this->_db->prepare('SELECT password, memberID FROM blog_members WHERE username = :username');
@@ -36,6 +38,24 @@ class User extends Password{
 
             $_SESSION['loggedin'] = true;
             return true;
+        }
+    }
+
+    public function register(array $details) {
+        try {
+            $details['password'] = $this->password_hash($details['password'], PASSWORD_BCRYPT);
+
+            $stmt = $this->_db->prepare('INSERT INTO users(username, password, email, name) VALUES (:user, :pass, :email, :name)');
+            $stmt->execute(array(
+                ':user' => $details['user'],
+                ':pass' => $details['password'],
+                ':email' => $details['email'],
+                ':name' => $details['name']
+            ));
+
+            header('Location: index.php');
+        } catch(\PDOException $e) {
+            echo('<p class="error">Sorry there was an issue with the registering, try again later</p>');
         }
     }
 
