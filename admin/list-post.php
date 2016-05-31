@@ -107,7 +107,7 @@ if(isset($_GET['pub'])) {
 //determine the total number of records
             $pages->set_total($stmt->rowCount());
 
-            $stmt = $db->query('SELECT postID, postTitle, postSlug, postDate, published, views FROM blog_posts_seo ORDER BY postID DESC '.$pages->get_limit());
+            $stmt = $db->query('SELECT postID, postTitle, postSlug, postDate, published, views FROM blog_posts_seo ORDER BY postDate DESC '.$pages->get_limit());
             while($row = $stmt->fetch()){
 
                 echo '<tr>';
