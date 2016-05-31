@@ -102,7 +102,7 @@ if(isset($_GET['pub'])) {
             $pages = new Paginator('20','p');
 
             //collect all records fro the next function
-            $stmt = $db->query('SELECT postID FROM blog_posts_seo');
+            $stmt = $db->query('SELECT postID FROM blog_posts_seo ORDER BY postDate');
 
 //determine the total number of records
             $pages->set_total($stmt->rowCount());
